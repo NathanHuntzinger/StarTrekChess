@@ -70,9 +70,9 @@ Tests for these conditions shall run between every turn:
 
 **Server-Client, or Client-Client connectivity (15 points)**
 1. Board
-    -A server will keep track of the board state and run the logic controlling the board.
-    -Player will get display data and send moves to the server as clients.
+    - A server will keep track of the board state and run the logic controlling the board.
+    - Players will get display data and send moves to the server as clients.
 2. Chat
-    -Players will be able to send messages to eachother in the game.
+    - Players will be able to send messages to eachother in the game.
 
 # Division of Labor
