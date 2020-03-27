@@ -76,3 +76,7 @@ Tests for these conditions shall run between every turn:
     - Players will be able to send messages to eachother in the game.
 
 # Division of Labor
+Ben Lewis
+ - Board logic and related classes
+ 
+ Nathan Huntzinger
