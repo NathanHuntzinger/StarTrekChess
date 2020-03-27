@@ -48,3 +48,31 @@ Tests for these conditions shall run between every turn:
 3. The game shall detect a draw:
     - A player can make no further moves without putting their king in check
     - Both players do not have sufficient pieces to put the other in checkmate
+    
+# Project requirements
+**At least 2 types JavaFX Panes organized well, to give your GUI a nice appearance and usability. (30 points)**
+1. The boards in the game will be grid panes with the peices as nodes in the pane. The chat will use a VBox pane of text feilds.
+
+**At least 6 types of JavaFX Nodes, i.e. Buttons, TextField, Labels, CheckBoxes, RadioButtons, ImageView, etc. (30 points)**
+1. The chat will be Text feild nodes.
+2. The Boards will have a grid of rectangle nodes to select spaces.
+3. The peices will be Image View nodes.
+
+**Animation i.e. Timeline or FadeTransition.  Or a video/audio component. (15 points)**
+1. The pieces will move from one space to another is a timeline transition.
+
+**Events (20 points)**
+1. Mouse action events will be used to trigger logic when the player clicks on a piece.
+
+**Bindings (20 points)**
+
+**Listeners (20 points)**
+
+**Server-Client, or Client-Client connectivity (15 points)**
+1. Board
+    -A server will keep track of the board state and run the logic controlling the board.
+    -Player will get display data and send moves to the server as clients.
+2. Chat
+    -Players will be able to send messages to eachother in the game.
+
+# Division of Labor
