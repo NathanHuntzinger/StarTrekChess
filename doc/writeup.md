@@ -78,5 +78,11 @@ Tests for these conditions shall run between every turn:
 # Division of Labor
 Ben Lewis
  - Board logic and related classes
+ - Write test cases for chat logic
+ - Impliment board into GUI
  
  Nathan Huntzinger
+ - Write logic for the chat function
+ - Write test cases for the board logic
+ - Impliment chat into GUI
+ - Impliment board into GUI
