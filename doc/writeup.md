@@ -55,18 +55,23 @@ Tests for these conditions shall run between every turn:
 
 **At least 6 types of JavaFX Nodes, i.e. Buttons, TextField, Labels, CheckBoxes, RadioButtons, ImageView, etc. (30 points)**
 1. The chat will be Text feild nodes.
-2. The Boards will have a grid of rectangle nodes to select spaces.
-3. The peices will be Image View nodes.
+2. The chat will have a send button as a Button node.
+3. The Boards will have a grid of rectangle nodes to select spaces.
+4. The chess pieces will be Image View nodes.
+5. The current player will be displayed as a Label node on the top of the screen.
+6. **__Add another type of node used__**
 
 **Animation i.e. Timeline or FadeTransition.  Or a video/audio component. (15 points)**
-1. The pieces will move from one space to another is a timeline transition.
+1. The pieces will move from one space to another in a timeline transition.
 
 **Events (20 points)**
 1. Mouse action events will be used to trigger logic when the player clicks on a piece.
 
 **Bindings (20 points)**
+**__Add a way we are using bindings__**
 
 **Listeners (20 points)**
+**__Add a way we are using listeners__**
 
 **Server-Client, or Client-Client connectivity (15 points)**
 1. Board
