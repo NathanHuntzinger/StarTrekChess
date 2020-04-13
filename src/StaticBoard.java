@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class StaticBoard extends Board{
+public class StaticBoard {
     private ArrayList<ArrayList<BoardPosition>> board;
     private int level;
 

@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class Piece {
     protected Player player;
     protected GameBoard gameBoard;
-    protected Board board;
     protected BoardPosition position;
 
     Piece(){
@@ -30,16 +29,16 @@ public class Piece {
         return gameBoard;
     }
 
-    public Board getBoard() {
-        return board;
-    }
-
     public BoardPosition getPosition() {
         return position;
     }
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void setPosition(BoardPosition position) {
+        this.position = position;
     }
 
     public void print() {

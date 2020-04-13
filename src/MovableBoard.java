@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class MovableBoard extends Board{
+public class MovableBoard {
     private ArrayList<ArrayList<BoardPosition>> board;
     private int level;
 

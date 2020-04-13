@@ -1,9 +1,12 @@
+
+
 public class Move {
     private BoardPosition from;
     private BoardPosition to;
 
-    Move(){
-
+    Move(BoardPosition from, BoardPosition to){
+        this.from = from;
+        this.to = to;
     }
 
     public BoardPosition getFrom() {

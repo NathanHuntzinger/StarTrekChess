@@ -10,7 +10,12 @@ public class Game {
     }
 
     public void executeMove (Move move){
-
+        if(move.getTo().getPiece() != null){
+            move.getTo().getPiece().setPosition(null);
+        }
+        move.getFrom().getPiece().setPosition(move.getTo());
+        move.getTo().setPiece(move.getFrom().getPiece());
+        move.getFrom().setPiece(null);
     }
 
     public GameBoard getGameBoard() {
