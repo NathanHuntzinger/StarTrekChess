@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
 public class Piece {
-    private Player player;
-    private GameBoard gameBoard;
-    private Board board;
-    private BoardPosition position;
+    protected Player player;
+    protected GameBoard gameBoard;
+    protected Board board;
+    protected BoardPosition position;
 
     Piece(){
 

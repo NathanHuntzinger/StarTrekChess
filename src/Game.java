@@ -4,9 +4,9 @@ public class Game {
     private GameBoard gameBoard;
 
     Game(){
-        gameBoard = new GameBoard();
-        player1 = new Player(1);
-        player2 = new Player(2);
+        this.gameBoard = new GameBoard();
+        this.player1 = new Player(gameBoard, 1);
+        this.player2 = new Player(gameBoard, 2);
     }
 
     public void executeMove (Move move){

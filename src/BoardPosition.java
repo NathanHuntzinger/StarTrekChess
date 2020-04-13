@@ -5,8 +5,20 @@ public class BoardPosition {
     private int level;
     private boolean validSpace;
 
-    BoardPosition(){
+    BoardPosition(int row, int col, int level){
+        this.row = row;
+        this.col = col;
+        this.level = level;
+        piece = null;
+        validSpace = false;
+    }
 
+    public void setPiece(Piece piece) {
+        this.piece = piece;
+    }
+
+    public void setValidSpace(boolean validSpace) {
+        this.validSpace = validSpace;
     }
 
     public Piece getPiece() {
