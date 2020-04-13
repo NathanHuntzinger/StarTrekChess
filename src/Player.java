@@ -9,108 +9,108 @@ public class Player {
         this.playerNumber = playerNumber;
         this.gameBoard = gameBoard;
         this.pieces = new ArrayList<>();
-        //set up player 1's peices
+        //set up player 1's pieces
         if(this.playerNumber == 1) {
             //setup pawns
-            this.pieces.add(new Pawn(gameBoard.getPosition(9,1,7), this));
-            gameBoard.getPosition(9,1,7).setPiece(this.pieces.get(0));
+            this.pieces.add(new Pawn(gameBoard.getPosition(8,0,6), this));
+            gameBoard.getPosition(8,0,6).setPiece(this.pieces.get(0));
 
-            this.pieces.add(new Pawn(gameBoard.getPosition(9,2,7), this));
-            gameBoard.getPosition(9,2,7).setPiece(this.pieces.get(1));
+            this.pieces.add(new Pawn(gameBoard.getPosition(8,1,6), this));
+            gameBoard.getPosition(8,1,6).setPiece(this.pieces.get(1));
 
-            this.pieces.add(new Pawn(gameBoard.getPosition(8,2,6), this));
-            gameBoard.getPosition(8,2,6).setPiece(this.pieces.get(2));
+            this.pieces.add(new Pawn(gameBoard.getPosition(7,1,5), this));
+            gameBoard.getPosition(7,1,5).setPiece(this.pieces.get(2));
 
-            this.pieces.add(new Pawn(gameBoard.getPosition(8,3,6), this));
-            gameBoard.getPosition(8,3,6).setPiece(this.pieces.get(3));
+            this.pieces.add(new Pawn(gameBoard.getPosition(7,2,5), this));
+            gameBoard.getPosition(7,2,5).setPiece(this.pieces.get(3));
+
+            this.pieces.add(new Pawn(gameBoard.getPosition(7,3,5), this));
+            gameBoard.getPosition(7,3,5).setPiece(this.pieces.get(4));
+
+            this.pieces.add(new Pawn(gameBoard.getPosition(7,4,5), this));
+            gameBoard.getPosition(7,4,5).setPiece(this.pieces.get(5));
 
             this.pieces.add(new Pawn(gameBoard.getPosition(8,4,6), this));
-            gameBoard.getPosition(8,4,6).setPiece(this.pieces.get(4));
+            gameBoard.getPosition(8,4,6).setPiece(this.pieces.get(6));
 
             this.pieces.add(new Pawn(gameBoard.getPosition(8,5,6), this));
-            gameBoard.getPosition(8,5,6).setPiece(this.pieces.get(5));
-
-            this.pieces.add(new Pawn(gameBoard.getPosition(9,5,7), this));
-            gameBoard.getPosition(9,5,7).setPiece(this.pieces.get(6));
-
-            this.pieces.add(new Pawn(gameBoard.getPosition(9,6,7), this));
-            gameBoard.getPosition(9,6,7).setPiece(this.pieces.get(7));
+            gameBoard.getPosition(8,5,6).setPiece(this.pieces.get(7));
 
             //setup back row
-            this.pieces.add(new Rook(gameBoard.getPosition(10,1,7), this));
-            gameBoard.getPosition(9,1,7).setPiece(this.pieces.get(8));
+            this.pieces.add(new Rook(gameBoard.getPosition(9,0,6), this));
+            gameBoard.getPosition(9,0,6).setPiece(this.pieces.get(8));
 
-            this.pieces.add(new Knight(gameBoard.getPosition(10,2,7), this));
-            gameBoard.getPosition(9,2,7).setPiece(this.pieces.get(9));
+            this.pieces.add(new Knight(gameBoard.getPosition(9,1,6), this));
+            gameBoard.getPosition(9,1,6).setPiece(this.pieces.get(9));
 
-            this.pieces.add(new Bishop(gameBoard.getPosition(9,2,6), this));
-            gameBoard.getPosition(8,2,6).setPiece(this.pieces.get(10));
+            this.pieces.add(new Bishop(gameBoard.getPosition(8,1,5), this));
+            gameBoard.getPosition(8,1,5).setPiece(this.pieces.get(10));
 
-            this.pieces.add(new Queen(gameBoard.getPosition(9,3,6), this));
-            gameBoard.getPosition(8,3,6).setPiece(this.pieces.get(11));
+            this.pieces.add(new Queen(gameBoard.getPosition(8,2,5), this));
+            gameBoard.getPosition(8,2,5).setPiece(this.pieces.get(11));
 
-            this.pieces.add(new King(gameBoard.getPosition(9,4,6),this));
-            gameBoard.getPosition(8,4,6).setPiece(this.pieces.get(12));
+            this.pieces.add(new King(gameBoard.getPosition(8,3,5),this));
+            gameBoard.getPosition(8,3,5).setPiece(this.pieces.get(12));
 
-            this.pieces.add(new Bishop(gameBoard.getPosition(9,5,6),this));
-            gameBoard.getPosition(8,5,6).setPiece(this.pieces.get(13));
+            this.pieces.add(new Bishop(gameBoard.getPosition(8,4,5),this));
+            gameBoard.getPosition(8,4,5).setPiece(this.pieces.get(13));
 
-            this.pieces.add(new Knight(gameBoard.getPosition(10,5,7),this));
-            gameBoard.getPosition(9,5,7).setPiece(this.pieces.get(14));
+            this.pieces.add(new Knight(gameBoard.getPosition(9,4,6),this));
+            gameBoard.getPosition(9,4,6).setPiece(this.pieces.get(14));
 
-            this.pieces.add(new Rook(gameBoard.getPosition(10,6,7),this));
-            gameBoard.getPosition(9,6,7).setPiece(this.pieces.get(15));
+            this.pieces.add(new Rook(gameBoard.getPosition(9,5,6),this));
+            gameBoard.getPosition(9,5,6).setPiece(this.pieces.get(15));
         }
         else{
             //setup pawns
-            this.pieces.add(new Pawn(this.gameBoard.getPosition(2,1,3), this));
-            this.gameBoard.getPosition(2,1,3).setPiece(this.pieces.get(0));
+            this.pieces.add(new Pawn(this.gameBoard.getPosition(1,0,2), this));
+            this.gameBoard.getPosition(1,0,2).setPiece(this.pieces.get(0));
 
-            this.pieces.add(new Pawn(this.gameBoard.getPosition(2,2,3), this));
-            this.gameBoard.getPosition(2,2,3).setPiece(this.pieces.get(1));
+            this.pieces.add(new Pawn(this.gameBoard.getPosition(1,1,2), this));
+            this.gameBoard.getPosition(1,1,2).setPiece(this.pieces.get(1));
 
-            this.pieces.add(new Pawn(this.gameBoard.getPosition(3,2,2), this));
-            this.gameBoard.getPosition(3,2,2).setPiece(this.pieces.get(2));
+            this.pieces.add(new Pawn(this.gameBoard.getPosition(2,1,1), this));
+            this.gameBoard.getPosition(2,1,1).setPiece(this.pieces.get(2));
 
-            this.pieces.add(new Pawn(this.gameBoard.getPosition(3,3,2), this));
-            this.gameBoard.getPosition(3,3,2).setPiece(this.pieces.get(3));
+            this.pieces.add(new Pawn(this.gameBoard.getPosition(2,2,1), this));
+            this.gameBoard.getPosition(2,2,1).setPiece(this.pieces.get(3));
 
-            this.pieces.add(new Pawn(this.gameBoard.getPosition(3,4,2), this));
-            this.gameBoard.getPosition(3,4,2).setPiece(this.pieces.get(4));
+            this.pieces.add(new Pawn(this.gameBoard.getPosition(2,3,1), this));
+            this.gameBoard.getPosition(2,3,1).setPiece(this.pieces.get(4));
 
-            this.pieces.add(new Pawn(this.gameBoard.getPosition(3,5,2), this));
-            this.gameBoard.getPosition(3,5,2).setPiece(this.pieces.get(5));
+            this.pieces.add(new Pawn(this.gameBoard.getPosition(2,4,1), this));
+            this.gameBoard.getPosition(2,4,1).setPiece(this.pieces.get(5));
 
-            this.pieces.add(new Pawn(this.gameBoard.getPosition(2,5,3), this));
-            this.gameBoard.getPosition(2,5,3).setPiece(this.pieces.get(6));
+            this.pieces.add(new Pawn(this.gameBoard.getPosition(1,4,2), this));
+            this.gameBoard.getPosition(1,4,2).setPiece(this.pieces.get(6));
 
-            this.pieces.add(new Pawn(this.gameBoard.getPosition(2,6,3), this));
-            this.gameBoard.getPosition(2,6,3).setPiece(this.pieces.get(7));
+            this.pieces.add(new Pawn(this.gameBoard.getPosition(1,5,2), this));
+            this.gameBoard.getPosition(1,5,2).setPiece(this.pieces.get(7));
 
             //setup back row
-            this.pieces.add(new Rook(this.gameBoard.getPosition(1,1,3), this));
-            this.gameBoard.getPosition(2,1,3).setPiece(this.pieces.get(8));
+            this.pieces.add(new Rook(this.gameBoard.getPosition(0,0,2), this));
+            this.gameBoard.getPosition(0,0,2).setPiece(this.pieces.get(8));
 
-            this.pieces.add(new Knight(this.gameBoard.getPosition(1,2,3), this));
-            this.gameBoard.getPosition(2,2,3).setPiece(this.pieces.get(9));
+            this.pieces.add(new Knight(this.gameBoard.getPosition(0,1,2), this));
+            this.gameBoard.getPosition(0,1,2).setPiece(this.pieces.get(9));
 
-            this.pieces.add(new Bishop(this.gameBoard.getPosition(2,2,2), this));
-            this.gameBoard.getPosition(3,2,2).setPiece(this.pieces.get(10));
+            this.pieces.add(new Bishop(this.gameBoard.getPosition(1,1,1), this));
+            this.gameBoard.getPosition(1,1,1).setPiece(this.pieces.get(10));
 
-            this.pieces.add(new Queen(this.gameBoard.getPosition(2,3,2), this));
-            this.gameBoard.getPosition(3,3,2).setPiece(this.pieces.get(11));
+            this.pieces.add(new Queen(this.gameBoard.getPosition(1,2,1), this));
+            this.gameBoard.getPosition(1,2,1).setPiece(this.pieces.get(11));
 
-            this.pieces.add(new King(this.gameBoard.getPosition(2,4,2),this));
-            this.gameBoard.getPosition(3,4,2).setPiece(this.pieces.get(12));
+            this.pieces.add(new King(this.gameBoard.getPosition(1,3,1),this));
+            this.gameBoard.getPosition(1,3,1).setPiece(this.pieces.get(12));
 
-            this.pieces.add(new Bishop(this.gameBoard.getPosition(2,5,2),this));
-            this.gameBoard.getPosition(3,5,2).setPiece(this.pieces.get(13));
+            this.pieces.add(new Bishop(this.gameBoard.getPosition(1,4,1),this));
+            this.gameBoard.getPosition(1,4,1).setPiece(this.pieces.get(13));
 
-            this.pieces.add(new Knight(this.gameBoard.getPosition(1,5,3),this));
-            this.gameBoard.getPosition(2,5,3).setPiece(this.pieces.get(14));
+            this.pieces.add(new Knight(this.gameBoard.getPosition(0,4,2),this));
+            this.gameBoard.getPosition(0,4,2).setPiece(this.pieces.get(14));
 
-            this.pieces.add(new Rook(this.gameBoard.getPosition(1,6,3),this));
-            this.gameBoard.getPosition(2,6,3).setPiece(this.pieces.get(15));
+            this.pieces.add(new Rook(this.gameBoard.getPosition(0,5,2),this));
+            this.gameBoard.getPosition(0,5,2).setPiece(this.pieces.get(15));
         }
     }
 
@@ -128,5 +128,14 @@ public class Player {
 
     public int getPlayerNumber() {
         return playerNumber;
+    }
+
+    public void print(){
+        System.out.println("Player: " + playerNumber);
+        for(int i = 0; i < pieces.size(); i++){
+            pieces.get(i).print();
+            System.out.println(pieces.get(i).getPosition().toString());
+        }
+        System.out.println();
     }
 }

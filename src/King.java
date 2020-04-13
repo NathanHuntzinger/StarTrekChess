@@ -4,4 +4,9 @@ public class King extends Piece{
         this.player = player;
     }
 
+    @Override
+    public void print() {
+        System.out.print("K");
+    }
+
 }

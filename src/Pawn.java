@@ -43,4 +43,9 @@ public class Pawn extends Piece{
 
         return moves;
     }
+
+    @Override
+    public void print() {
+        System.out.print("P");
+    }
 }

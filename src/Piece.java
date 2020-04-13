@@ -41,4 +41,7 @@ public class Piece {
     public Player getPlayer() {
         return player;
     }
+
+    public void print() {
+    }
 }

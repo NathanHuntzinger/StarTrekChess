@@ -40,4 +40,8 @@ public class BoardPosition {
     public boolean isValidSpace(){
         return validSpace;
     }
+
+    public String toString(){
+        return "(" + row + ", " + col + ", " + level + ")";
+    }
 }

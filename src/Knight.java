@@ -3,4 +3,9 @@ public class Knight extends Piece{
         this.position = position;
         this.player = player;
     }
+
+    @Override
+    public void print() {
+        System.out.print("N");
+    }
 }

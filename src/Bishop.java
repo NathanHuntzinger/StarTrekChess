@@ -3,4 +3,9 @@ public class Bishop extends Piece{
         this.position = position;
         this.player = player;
     }
+
+    @Override
+    public void print() {
+        System.out.print("B");
+    }
 }
