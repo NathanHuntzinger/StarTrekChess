@@ -6,6 +6,11 @@ public class Queen extends Piece{
 
     @Override
     public void print() {
-        System.out.print("Q");
+        if(player.getPlayerNumber() == 1) {
+            System.out.print("Q");
+        }
+        else{
+            System.out.print("q");
+        }
     }
 }

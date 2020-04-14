@@ -1,5 +1,3 @@
-
-
 public class Move {
     private BoardPosition from;
     private BoardPosition to;

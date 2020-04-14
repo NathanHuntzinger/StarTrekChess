@@ -6,7 +6,12 @@ public class King extends Piece{
 
     @Override
     public void print() {
-        System.out.print("K");
+        if(player.getPlayerNumber() == 1) {
+            System.out.print("K");
+        }
+        else{
+            System.out.print("k");
+        }
     }
 
 }

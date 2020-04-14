@@ -46,6 +46,11 @@ public class Pawn extends Piece{
 
     @Override
     public void print() {
-        System.out.print("P");
+        if(player.getPlayerNumber() == 1) {
+            System.out.print("P");
+        }
+        else{
+            System.out.print("p");
+        }
     }
 }

@@ -6,6 +6,11 @@ public class Rook extends Piece{
 
     @Override
     public void print() {
-        System.out.print("R");
+        if(player.getPlayerNumber() == 1) {
+            System.out.print("R");
+        }
+        else{
+            System.out.print("r");
+        }
     }
 }

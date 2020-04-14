@@ -6,6 +6,11 @@ public class Knight extends Piece{
 
     @Override
     public void print() {
-        System.out.print("N");
+        if(player.getPlayerNumber() == 1) {
+            System.out.print("N");
+        }
+        else{
+            System.out.print("n");
+        }
     }
 }

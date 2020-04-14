@@ -3,35 +3,39 @@ import java.util.ArrayList;
 public class MovableBoard {
     private ArrayList<ArrayList<BoardPosition>> board;
     private int level;
+    private MovableBoardPosition position;
 
-    MovableBoard(int rowmin, int rowmax, int colmin, int colmax, int level, ArrayList<ArrayList<ArrayList<BoardPosition>>> positions){
-        board = new ArrayList<>();
-
-        for(int r = 0; r <= rowmax - rowmin; r++){
-            board.add(new ArrayList<BoardPosition>());
-            for(int c = 0; c <= colmax - colmin; c++){
-                board.get(r).add(positions.get(r + rowmin).get(c + colmin).get(level));
-                positions.get(r + rowmin).get(c + colmin).get(level).setValidSpace(true);
+    MovableBoard( int level, MovableBoardPosition movableBoardPosition){
+        this.board = movableBoardPosition.getBoardSection();
+        for (int i = 0; i < this.board.size(); i++){
+            for (int j = 0; j < this.board.get(i).size(); j++){
+                this.board.get(i).get(j).setValidSpace(true);
             }
         }
-        /*
-        for(int r = rowmin; r <= rowmax; r++){
-            board.add(new ArrayList<BoardPosition>());
-            for(int c = colmin; c <= colmax; c++){
-                board.get(r).add(positions.get(r).get(c).get(level));
-                positions.get(r).get(c).get(level).setValidSpace(true);
-            }
-        }
-        */
+
+        this.position = movableBoardPosition;
         this.level = level;
+        position.setMovableBoard(this);
     }
 
     public ArrayList<ArrayList<BoardPosition>> getBoard() {
         return board;
     }
 
+    public void setBoard(ArrayList<ArrayList<BoardPosition>> board) {
+        this.board = board;
+    }
+
+    public void setPosition(MovableBoardPosition position) {
+        this.position = position;
+    }
+
     public int getLevel() {
         return level;
+    }
+
+    public MovableBoardPosition getPosition() {
+        return position;
     }
 
     public void printBoard(){

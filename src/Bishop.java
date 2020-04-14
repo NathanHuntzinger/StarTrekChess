@@ -6,6 +6,11 @@ public class Bishop extends Piece{
 
     @Override
     public void print() {
-        System.out.print("B");
+        if(player.getPlayerNumber() == 1) {
+            System.out.print("B");
+        }
+        else{
+            System.out.print("b");
+        }
     }
 }

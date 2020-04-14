@@ -15,16 +15,6 @@ public class StaticBoard {
             }
         }
 
-        /*
-        for(int r = rowmin; r <= rowmax; r++){
-            board.add(new ArrayList<BoardPosition>());
-            for(int c = colmin; c <= colmax; c++){
-                board.get(r).add(positions.get(r).get(c).get(level));
-                positions.get(r).get(c).get(level).setValidSpace(true);
-            }
-        }
-         */
-
         this.level = level;
     }
 
