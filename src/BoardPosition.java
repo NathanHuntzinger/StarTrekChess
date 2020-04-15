@@ -5,6 +5,8 @@ public class BoardPosition {
     private int level;
     private boolean validSpace;
 
+    BoardPosition(){}
+
     BoardPosition(int row, int col, int level){
         this.row = row;
         this.col = col;
