@@ -4,7 +4,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class ChatServer {
-    ServerSocket serverSocket;
     int port;
     ArrayList<PlayerThread> playerThreads;
 
@@ -30,55 +29,16 @@ public class ChatServer {
         }
     }
 
-    protected void broadcast(String msg) {
+    protected void broadcast(Object payload, PlayerThread sender) {
         for (PlayerThread player : playerThreads) {
-            player.sendChat(msg);
+            if (player == sender) { continue; }
+
+            player.send(payload);
         }
     }
 
     public static void main(String[] args) {
         ChatServer server = new ChatServer(9001);
         server.start();
-    }
-}
-
-class PlayerThread {
-    Socket socket;
-    ChatServer server;
-    BufferedWriter writer;
-    BufferedReader reader;
-    String name;
-
-    PlayerThread(Socket socket, ChatServer server) {
-        this.socket = socket;
-        this.server = server;
-
-        this.start();
-    }
-
-    public void start() {
-        try {
-            this.reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            this.writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-
-            System.out.println("What is your name?  ");
-            this.name = reader.readLine();
-
-            String msg = "I AM BORN!!!!";
-            while (true) {
-                if (!msg.startsWith("/")) {
-                    msg = reader.readLine();
-                    server.broadcast("[" + name + "]: " + msg);
-                }
-            }
-        }
-        catch (IOException e) {
-            System.out.println("Player connection error: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    protected void sendChat(String msg) {
-        System.out.println(msg);
     }
 }
