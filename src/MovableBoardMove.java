@@ -1,6 +1,6 @@
-import java.util.ArrayList;
+import java.io.Serializable;
 
-public class MovableBoardMove {
+public class MovableBoardMove implements Serializable {
     private MovableBoardPosition from;
     private MovableBoardPosition to;
 
