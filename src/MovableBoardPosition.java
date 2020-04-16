@@ -4,6 +4,8 @@ public class MovableBoardPosition {
     private ArrayList<ArrayList<BoardPosition>> boardSection;
     private MovableBoard movableBoard;
 
+    MovableBoardPosition(){}
+
     MovableBoardPosition(int rowmin, int rowmax, int colmin, int colmax, int level, ArrayList<ArrayList<ArrayList<BoardPosition>>> positions){
         boardSection = new ArrayList<>();
 
@@ -11,7 +13,6 @@ public class MovableBoardPosition {
             boardSection.add(new ArrayList<BoardPosition>());
             for(int c = 0; c <= colmax - colmin; c++){
                 boardSection.get(r).add(positions.get(r + rowmin).get(c + colmin).get(level));
-//                positions.get(r + rowmin).get(c + colmin).get(level).setValidSpace(true);
             }
         }
         this.movableBoard = null;
