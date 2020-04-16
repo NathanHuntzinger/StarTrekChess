@@ -80,41 +80,12 @@ public class GUITest extends Application {
             }
         }
 
-
         for (int r = 0; r < board.size(); r++) {
             for (int c = 0; c < board.get(r).size(); c++) {
                 for (int l = 0; l < board.get(r).get(c).size(); l++) {
-                    BoardSquare rect = new BoardSquare(50,50,r,c);
+                    Rectangle rect = new Rectangle(50,50);
                     if(!myGame.getGameBoard().getPosition(r,c,l).isValidSpace()){
                         rect.setFill(Color.TRANSPARENT);
-                    }
-                    else if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof Bishop){
-                        rect.setFill(Color.LIGHTBLUE);
-                        rect.setStroke(Color.BLACK);
-                    }
-                    else if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof King){
-                        rect.setFill(Color.GOLD);
-                        rect.setStroke(Color.BLACK);
-                    }
-                    else if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof King){
-                        rect.setFill(Color.GOLD);
-                        rect.setStroke(Color.BLACK);
-                    }
-                    else if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof Knight){
-                        rect.setFill(Color.GREEN);
-                        rect.setStroke(Color.BLACK);
-                    }
-                    else if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof Pawn){
-                        rect.setFill(Color.PINK);
-                        rect.setStroke(Color.BLACK);
-                    }
-                    else if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof Queen){
-                        rect.setFill(Color.SILVER);
-                        rect.setStroke(Color.BLACK);
-                    }
-                    else if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof Rook){
-                        rect.setFill(Color.RED);
-                        rect.setStroke(Color.BLACK);
                     }
                     else{
                         if((r % 2 == 0 && c % 2 == 0) || (r % 2 == 1 && c % 2 == 1)){
@@ -126,9 +97,47 @@ public class GUITest extends Application {
                             rect.setStroke(Color.BLACK);
                         }
                     }
-                    levels.get(l).add(rect, c, r);
+                    levels.get(l).add(new StackPane(rect), c, r);
 
+                    Rectangle piece = new Rectangle(0,0,25, 25);
+                    if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof Bishop){
+                        piece.setFill(Color.LIGHTBLUE);
+                        piece.setStroke(Color.BLACK);
+                    }
+                    else if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof King){
+                        piece.setFill(Color.GOLD);
+                        piece.setStroke(Color.BLACK);
+                    }
+                    else if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof King){
+                        piece.setFill(Color.GOLD);
+                        piece.setStroke(Color.BLACK);
+                    }
+                    else if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof Knight){
+                        piece.setFill(Color.GREEN);
+                        piece.setStroke(Color.BLACK);
+                    }
+                    else if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof Pawn){
+                        piece.setFill(Color.PINK);
+                        piece.setStroke(Color.BLACK);
+                    }
+                    else if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof Queen){
+                        piece.setFill(Color.SILVER);
+                        piece.setStroke(Color.BLACK);
+                    }
+                    else if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof Rook){
+                        piece.setFill(Color.RED);
+                        piece.setStroke(Color.BLACK);
+                    }
+                    else{
+                        piece.setFill(Color.TRANSPARENT);
+                        piece.setStroke(Color.TRANSPARENT);
+                    }
+                    StackPane stack = (StackPane) getNodeFromGridPane(levels.get(l), c, r);
+                    stack.getChildren().add(1,piece);
 
+                    BoardSquare clickableSquare = new BoardSquare(50,50,r,c);
+                    clickableSquare.setFill(Color.TRANSPARENT);
+                    stack.getChildren().add(2,clickableSquare);
                 }
             }
         }
@@ -144,19 +153,24 @@ public class GUITest extends Application {
                 for (int c = 0; c < board.get(r).size(); c++) {
                     for (int l = 0; l < board.get(r).get(c).size(); l++) {
                         if(Character.isDigit(levelChar)) {
-                            BoardSquare rect = (BoardSquare) getNodeFromGridPane(levels.get(l), c, r);
+                            StackPane stack = (StackPane) getNodeFromGridPane(levels.get(l), c, r);
+                            Rectangle rect = (Rectangle) stack.getChildren().get(0);
+                            Rectangle piece = (Rectangle) stack.getChildren().get(1);
 
                             if(levelChar == '7'){
                                 currentLevel.set(6);
                                 rect.setOpacity(1);
+                                piece.setOpacity(1);
                             }
                             else if (Character.getNumericValue(levelChar) != l) {
                                 rect.setOpacity(0.25);
+                                piece.setOpacity(0.25);
                             }
 
                             else{
                                 currentLevel.set(l);
                                 rect.setOpacity(1);
+                                piece.setOpacity(1);
                             }
                         }
 
@@ -165,17 +179,12 @@ public class GUITest extends Application {
             }
         });
 
-
         //These are just guess values to try to get it in the center
         stackPane.layoutXProperty().bind(scene.widthProperty().divide(2).subtract(stackPane.getWidth()/4));
         stackPane.layoutYProperty().bind(scene.heightProperty().divide(2).subtract(stackPane.getHeight()/2.5));
 
         primaryStage.setScene(scene);
         primaryStage.show();
-
-
-
-
     }
     private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
         for (Node node : gridPane.getChildren()) {
@@ -190,47 +199,39 @@ public class GUITest extends Application {
         for (int r = 0; r < board.size(); r++) {
             for (int c = 0; c < board.get(r).size(); c++) {
                 for (int l = 0; l < board.get(r).get(c).size(); l++) {
-                    Rectangle rect = (Rectangle) getNodeFromGridPane(levels.get(l), c, r);
-                    if(!myGame.getGameBoard().getPosition(r,c,l).isValidSpace()){
-                        rect.setFill(Color.TRANSPARENT);
-                    }
-                    else if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof Bishop){
-                        rect.setFill(Color.LIGHTBLUE);
-                        rect.setStroke(Color.BLACK);
+                    StackPane stack = (StackPane) getNodeFromGridPane(levels.get(l), c, r);
+                    Rectangle piece = (Rectangle) stack.getChildren().get(1);
+                    if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof Bishop){
+                        piece.setFill(Color.LIGHTBLUE);
+                        piece.setStroke(Color.BLACK);
                     }
                     else if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof King){
-                        rect.setFill(Color.GOLD);
-                        rect.setStroke(Color.BLACK);
+                        piece.setFill(Color.GOLD);
+                        piece.setStroke(Color.BLACK);
                     }
                     else if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof King){
-                        rect.setFill(Color.GOLD);
-                        rect.setStroke(Color.BLACK);
+                        piece.setFill(Color.GOLD);
+                        piece.setStroke(Color.BLACK);
                     }
                     else if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof Knight){
-                        rect.setFill(Color.GREEN);
-                        rect.setStroke(Color.BLACK);
+                        piece.setFill(Color.GREEN);
+                        piece.setStroke(Color.BLACK);
                     }
                     else if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof Pawn){
-                        rect.setFill(Color.PINK);
-                        rect.setStroke(Color.BLACK);
+                        piece.setFill(Color.PINK);
+                        piece.setStroke(Color.BLACK);
                     }
                     else if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof Queen){
-                        rect.setFill(Color.SILVER);
-                        rect.setStroke(Color.BLACK);
+                        piece.setFill(Color.SILVER);
+                        piece.setStroke(Color.BLACK);
                     }
                     else if(myGame.getGameBoard().getPosition(r,c,l).getPiece() instanceof Rook){
-                        rect.setFill(Color.RED);
-                        rect.setStroke(Color.BLACK);
+                        piece.setFill(Color.RED);
+                        piece.setStroke(Color.BLACK);
                     }
                     else{
-                        if((r % 2 == 0 && c % 2 == 0) || (r % 2 == 1 && c % 2 == 1)){
-                            rect.setFill(Color.WHITE);
-                            rect.setStroke(Color.BLACK);
-                        }
-                        else{
-                            rect.setFill(Color.BLACK);
-                            rect.setStroke(Color.BLACK);
-                        }
+                        piece.setFill(Color.TRANSPARENT);
+                        piece.setStroke(Color.TRANSPARENT);
                     }
                 }
             }
