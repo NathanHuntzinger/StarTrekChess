@@ -62,7 +62,18 @@ public class GUITest extends Application {
                                 System.out.println("A piece was selected!");
                                 pieceSelected.set(true);
                                 moveFrom.set(pos);
-//                        ArrayList<BoardPosition> possibleMoves = myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()).getPiece().getMoves();
+                                ArrayList<BoardPosition> possibleMoves = myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()).getPiece().getMoves();
+                                for (BoardPosition move : possibleMoves){
+                                    System.out.println(move.toString());
+                                    StackPane stack = (StackPane) getNodeFromGridPane(levels.get(move.getLevel()), move.getCol(), move.getRow());
+                                    Rectangle rect = (Rectangle) stack.getChildren().get(0);
+                                    if(move.getPiece() != null){
+                                        rect.setFill(Color.RED);
+                                    }
+                                    else {
+                                        rect.setFill(Color.BLUE);
+                                    }
+                                }
                             }
                         } else {
                             if (myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()).isValidSpace()) {
@@ -102,7 +113,6 @@ public class GUITest extends Application {
                                             selectMovableBoard.set(false);
                                             System.out.println("A board was moved");
                                             updateBoard(myGame, board, levels);
-                                            myGame.getGameBoard().printVerbose();
                                         }
                                     }
                                 }
@@ -206,8 +216,8 @@ public class GUITest extends Application {
                                 piece.setOpacity(1);
                             }
                             else if (Character.getNumericValue(levelChar) != l) {
-                                rect.setOpacity(0.25);
-                                piece.setOpacity(0.25);
+                                rect.setOpacity(0.15);
+                                piece.setOpacity(0.15);
                             }
 
                             else{
@@ -223,7 +233,16 @@ public class GUITest extends Application {
         });
 
         scene.setOnKeyPressed(e->{
-            if (e.getCode() == KeyCode.SHIFT) {
+            if (e.getCode() == KeyCode.ESCAPE) {
+                System.out.println("Deselecting");
+                selectMovableBoard.set(false);
+                boardSelected.set(false);
+                pieceSelected.set(false);
+                moveFrom.set(null);
+                boardMoveFrom.set(null);
+                updateBoard(myGame, board, levels);
+            }
+            else if (e.getCode() == KeyCode.SHIFT) {
                 System.out.println("Entering board selection mode");
                 selectMovableBoard.set(true);
             }

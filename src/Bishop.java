@@ -1,5 +1,8 @@
+import java.util.ArrayList;
+
 public class Bishop extends Piece{
-    Bishop(BoardPosition position, Player player){
+    Bishop(BoardPosition position, Player player, GameBoard gameBoard){
+        this.gameBoard = gameBoard;
         this.position = position;
         this.player = player;
     }
@@ -12,5 +15,11 @@ public class Bishop extends Piece{
         else{
             System.out.print("b");
         }
+    }
+
+    ArrayList<BoardPosition> getMoves() {
+        ArrayList<BoardPosition> moves = new ArrayList<>();
+
+        return moves;
     }
 }
