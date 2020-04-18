@@ -21,36 +21,35 @@ public class Queen extends Piece{
     }
 
     ArrayList<BoardPosition> getMoves() {
-        for(int r = -1; r <= 1; r++){
-            for(int c = -1; c <= 1; c++){
-                for(int l = -1; l <= 1; l++) {
-                    if(getGameBoard().isValidPosition(this.getRow() + r, this.getCol() + c, this.getLevel() + l)
-                            && (getGameBoard().getPosition(this.getRow() + r, this.getCol() + c, this.getLevel() + l).getPiece() == null
-                            || getGameBoard().getPosition(this.getRow() + r, this.getCol() + c, this.getLevel() + l).getPiece().getPlayer() != this.getPlayer())){
+        this.moves = new ArrayList<>();
+        for(int iterator1 = -1; iterator1 <= 1; iterator1 ++){
+            for(int iterator2 = -1; iterator2 <= 1; iterator2++) {
+                for (int l = -1; l <= 1; l++) {
+                    if (getGameBoard().isValidPosition(this.getRow() + iterator1, this.getCol() + iterator2, this.getLevel() + l)
+                            && (getGameBoard().getPosition(this.getRow() + iterator1, this.getCol() + iterator2, this.getLevel() + l).getPiece() == null
+                            || getGameBoard().getPosition(this.getRow() + iterator1, this.getCol() + iterator2, this.getLevel() + l).getPiece().getPlayer() != this.getPlayer())) {
 
-                        moves.add(getGameBoard().getPosition(this.getRow() + r, this.getCol() + c, this.getLevel() + l));
-                        getMovesRecursive(r,c,l);
+                        getMovesRecursive(this.getRow() + iterator1, this.getCol() + iterator2, this.getLevel() + l, iterator1,  iterator2);
                     }
                 }
             }
         }
+
         return this.moves;
     }
 
-    void getMovesRecursive(int offsetR, int offsetC, int offsetL){
-        for(int r = -1; r <= 1; r++){
-            for(int c = -1; c <= 1; c++){
-                for(int l = -1; l <= 1; l++) {
-                    if(getGameBoard().isValidPosition(this.getRow() + r + offsetR, this.getCol() + c + offsetC, this.getLevel() + l + offsetL)
-                            && (getGameBoard().getPosition(this.getRow() + r + offsetR, this.getCol() + c + offsetC, this.getLevel() + l + offsetL).getPiece() == null
-                            || getGameBoard().getPosition(this.getRow() + r + offsetR, this.getCol() + c + offsetC, this.getLevel() + l + offsetL).getPiece().getPlayer() != this.getPlayer())){
-                        if(!moves.contains(getGameBoard().getPosition(this.getRow() + r + offsetR, this.getCol() + c + offsetC, this.getLevel() + l + offsetL))) {
-                            moves.add(getGameBoard().getPosition(this.getRow() + r + offsetR, this.getCol() + c + offsetC, this.getLevel() + l + offsetL));
-                            getMovesRecursive(r + offsetR, c + offsetC, l + offsetL);
-                        }
-                    }
+    void getMovesRecursive(int row, int col, int level, int rowDirection, int colDirection){
+        for(int l = -1; l <= 1; l++) {
+            if(getGameBoard().isValidPosition(row, col, level + l)
+                    && (getGameBoard().getPosition(row, col, level + l).getPiece() == null
+                    || getGameBoard().getPosition(row, col, level + l).getPiece().getPlayer() != this.getPlayer())){
+
+                moves.add(getGameBoard().getPosition(row, col, level + l));
+                if(getGameBoard().getPosition(row, col, level + l).getPiece() == null) {
+                    getMovesRecursive(row + rowDirection, col + colDirection, level + l, rowDirection, colDirection);
                 }
             }
         }
+
     }
 }

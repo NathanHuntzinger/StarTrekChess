@@ -28,14 +28,12 @@ public class Rook extends Piece{
                             && (getGameBoard().getPosition(this.getRow() + iterator1, this.getCol(), this.getLevel() + l).getPiece() == null
                             || getGameBoard().getPosition(this.getRow() + iterator1, this.getCol(), this.getLevel() + l).getPiece().getPlayer() != this.getPlayer())){
 
-//                        moves.add(getGameBoard().getPosition(this.getRow() + iterator1, this.getCol(), this.getLevel() + l));
                         getMovesRecursive(this.getRow() + iterator1 ,this.getCol(),this.getLevel() + l, iterator1, 0);
                     }
                 if(getGameBoard().isValidPosition(this.getRow(), this.getCol() + iterator1, this.getLevel() + l)
                         && (getGameBoard().getPosition(this.getRow(), this.getCol() + iterator1, this.getLevel() + l).getPiece() == null
                         || getGameBoard().getPosition(this.getRow(), this.getCol() + iterator1, this.getLevel() + l).getPiece().getPlayer() != this.getPlayer())){
 
-//                    moves.add(getGameBoard().getPosition(this.getRow(), this.getCol() + iterator1, this.getLevel() + l));
                     getMovesRecursive(this.getRow() ,this.getCol() + iterator1,this.getLevel() + l, 0, iterator1);
                 }
             }
