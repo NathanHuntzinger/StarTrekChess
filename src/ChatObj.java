@@ -9,16 +9,16 @@ public class ChatObj implements Serializable {
         this.msg = msg;
     }
 
-    @Override
-    public String toString() {
-        return "[" + playerName + "]: " + msg;
-    }
-
     public String getPlayerName() {
         return playerName;
     }
 
     public String getMsg() {
         return msg;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + playerName + "]: " + msg;
     }
 }

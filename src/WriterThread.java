@@ -1,35 +1,41 @@
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class WriterThread extends Thread {
-    private PrintWriter writer;
+    private ObjectOutputStream outputStream;
     private Client client;
+    private Socket socket;
+    protected String userName;
 
     public WriterThread(Socket socket, Client client) {
         this.client = client;
-
-        try {
-            OutputStream output = new ObjectOutputStream(socket.getOutputStream());
-            writer = new PrintWriter(output, true);
-        } catch (IOException ex) {
-            System.out.println("Error getting output stream: " + ex.getMessage());
-            ex.printStackTrace();
-        }
+        this.socket = socket;
+        this.userName = client.getPlayerName();
     }
 
     public void run() {
+        System.out.println("Started the Writer Thread");
 
-        Console console = System.console();
+        try {
+            outputStream = new ObjectOutputStream(socket.getOutputStream());
 
-        String userName = console.readLine("\nEnter your name: ");
-        client.setPlayerName(userName);
-        writer.println(userName);
+            ChatObj chat;
+            Scanner scanner;
 
-        ChatObj chatMessage;
+            while (true) {
+                scanner = new Scanner(System.in);
 
-        while (true) {
-            chatMessage = new ChatObj(userName, console.readLine());
-            writer.println(chatMessage);
+                System.out.print("> "); // TODO: This will need to be taken out when we have a GUI
+                chat = new ChatObj(userName, scanner.nextLine());
+
+                outputStream.writeObject(chat);
+                outputStream.flush();
+            }
+        } catch (IOException ex) {
+            System.out.println("I/O Error: " + ex.getMessage());
+            ex.printStackTrace();
         }
     }
 }

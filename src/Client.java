@@ -4,7 +4,10 @@ import java.net.Socket;
 public class Client {
     private String hostname;
     private int port;
-    private String playerName;
+    private Socket socket;
+    private String playerName = "Dummy Name";
+    private WriterThread writerThread;
+    private ReaderThread readerThread;
 
     public Client(String hostname, int port) {
         this.hostname = hostname;
@@ -13,25 +16,30 @@ public class Client {
 
     public void start() {
         try {
-            Socket socket = new Socket(hostname, port);
+            socket = new Socket(hostname, port);
 
             System.out.println("Connected to the chat server");
 
-            ReaderThread reader = new ReaderThread(socket, this);
-            WriterThread writer = new WriterThread(socket, this);
+            writerThread = new WriterThread(socket, this);
+            readerThread = new ReaderThread(socket, this);
 
-            reader.start();
-            writer.start();
-        } catch (IOException ex) {
+            readerThread.start();
+            writerThread.start();
+        }
+        catch (IOException ex) {
             System.out.println("I/O Error: " + ex.getMessage());
         }
 
     }
 
-    void setPlayerName(String name) {
+    public void setPlayerName(String name) {
         this.playerName = name;
+        if (this.writerThread != null) {
+            this.writerThread.userName = name;
+        }
     }
-    String getPlayerName() {
+
+    public String getPlayerName() {
         return this.playerName;
     }
 
@@ -41,6 +49,7 @@ public class Client {
         int port = 9001;
 
         Client client = new Client(hostname, port);
+        client.setPlayerName("Client");
         client.start();
     }
 }
