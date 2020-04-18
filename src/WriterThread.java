@@ -7,12 +7,15 @@ public class WriterThread extends Thread {
     private ObjectOutputStream outputStream;
     private Client client;
     private Socket socket;
+    private ChatGUI GUI;
     protected String userName;
 
-    public WriterThread(Socket socket, Client client) {
+
+    public WriterThread(Socket socket, Client client, ChatGUI GUI) {
         this.client = client;
         this.socket = socket;
         this.userName = client.getPlayerName();
+        this.GUI = GUI;
     }
 
     public void run() {
@@ -27,7 +30,7 @@ public class WriterThread extends Thread {
             while (true) {
                 scanner = new Scanner(System.in);
 
-                System.out.print("> "); // TODO: This will need to be taken out when we have a GUI
+                System.out.print("> ");
                 chat = new ChatObj(userName, scanner.nextLine());
 
                 outputStream.writeObject(chat);
