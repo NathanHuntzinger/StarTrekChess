@@ -1,15 +1,15 @@
-import java.io.*;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
 public class ChatServer {
     int port;
-    ArrayList<PlayerThread> playerThreads;
+    ArrayList<serverThread> playerThreads;
 
     ChatServer(int port) {
         this.port = port;
-        playerThreads = new ArrayList<PlayerThread>();
+        playerThreads = new ArrayList<serverThread>();
     }
 
     public void start() {
@@ -19,7 +19,7 @@ public class ChatServer {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("New Connection: " + clientSocket);
 
-                PlayerThread newPlayer = new PlayerThread(clientSocket, this);
+                serverThread newPlayer = new serverThread(clientSocket, this);
                 playerThreads.add(newPlayer);
                 newPlayer.start();
             }
@@ -29,11 +29,13 @@ public class ChatServer {
         }
     }
 
-    protected void broadcast(Object payload, PlayerThread sender) {
-        for (PlayerThread player : playerThreads) {
-            if (player == sender) { continue; }
+    protected void broadcast(Object payload, serverThread sender) {
+        for (serverThread player : playerThreads) {
+            if (player != sender) {
+                System.out.println(payload.toString());
 
-            player.send(payload);
+                player.toClient(payload);
+            }
         }
     }
 
