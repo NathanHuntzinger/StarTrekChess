@@ -30,9 +30,6 @@ public class King extends Piece{
                 }
             }
         }
-        for(BoardPosition move : moves){
-            System.out.println(move.toString());
-        }
         return moves;
     }
 }

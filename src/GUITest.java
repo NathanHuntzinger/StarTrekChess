@@ -3,13 +3,11 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
-
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -36,9 +34,20 @@ public class GUITest extends Application {
         AtomicReference<MovableBoardPosition> boardMoveFrom = new AtomicReference<>(new MovableBoardPosition());
         AtomicReference<MovableBoardPosition> boardMoveTo = new AtomicReference<>(new MovableBoardPosition());
 
+        StackPane gameBoardStack = new StackPane();
+        BorderPane mainPane = new BorderPane();
+        mainPane.setCenter(gameBoardStack);
 
-        StackPane stackPane = new StackPane();
+        ArrayList<GridPane> levels = new ArrayList<>();
+        for (int i = 0; i < 7; i++){
+            levels.add(new GridPane());
+            gameBoardStack.getChildren().add(levels.get(i));
+        }
 
+        BackgroundImage myBI= new BackgroundImage(new Image(GUITest.class.getResourceAsStream("background.jpg"), 2000, 800, true, false),
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+
+        mainPane.setBackground(new Background(myBI));
 
         Image pawn_w_image = new Image(GUITest.class.getResourceAsStream("pawn_w.png"), 50, 50, false, false);
         Image pawn_b_image = new Image(GUITest.class.getResourceAsStream("pawn_b.png"), 50, 50, false, false);
@@ -67,14 +76,9 @@ public class GUITest extends Application {
         images.add(queen_b_image);
         images.add(king_b_image);
 
-        ArrayList<GridPane> levels = new ArrayList<>();
-        for (int i = 0; i < 7; i++){
-            levels.add(new GridPane());
-            stackPane.getChildren().add(levels.get(i));
-        }
         ArrayList<ArrayList<ArrayList<BoardPosition>>> board = myGame.getGameBoard().getBoard();
 
-
+        //Internal class
         class BoardSquare extends Rectangle {
             int row;
             int col;
@@ -262,7 +266,7 @@ public class GUITest extends Application {
             }
         }
 
-        Scene scene = new Scene(stackPane, 600, 600);
+        Scene scene = new Scene(mainPane, 600, 600);
 
         scene.setOnKeyTyped(e->{
             Character levelChar = e.getCharacter().charAt(0);
@@ -322,9 +326,6 @@ public class GUITest extends Application {
             }
         });
 
-        //These are just guess values to try to get it in the center
-        stackPane.layoutXProperty().bind(scene.widthProperty().divide(2).subtract(stackPane.getWidth()/4));
-        stackPane.layoutYProperty().bind(scene.heightProperty().divide(2).subtract(stackPane.getHeight()/2.5));
 
         primaryStage.setScene(scene);
         primaryStage.show();
