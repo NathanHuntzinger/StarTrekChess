@@ -1,11 +1,17 @@
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
 
@@ -37,6 +43,9 @@ public class GUITest extends Application {
         StackPane gameBoardStack = new StackPane();
         BorderPane mainPane = new BorderPane();
         mainPane.setCenter(gameBoardStack);
+
+        VBox chatPane = setUpChat();
+        mainPane.setRight(chatPane);
 
         ArrayList<GridPane> levels = new ArrayList<>();
         for (int i = 0; i < 7; i++){
@@ -407,6 +416,92 @@ public class GUITest extends Application {
                 }
             }
         }
+    }
+
+    /**
+     * Chat Functions
+     */
+    private Text name;
+    private VBox chat;
+    private Client client;
+    private String hostname;
+    private int port;
+
+    private VBox setUpChat() {
+        VBox mainChatPane;
+        mainChatPane = new VBox();
+        this.chat = new VBox();
+        HBox input = createChatInputPane();
+
+        mainChatPane.setSpacing(10);
+        mainChatPane.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        mainChatPane.setOpacity(.5);
+        mainChatPane.setMinWidth(300);
+
+        mainChatPane.getChildren().add(chat);
+        mainChatPane.getChildren().add(input);
+        mainChatPane.setAlignment(Pos.BOTTOM_CENTER);
+
+        return mainChatPane;
+    }
+
+    private HBox createChatInputPane() {
+        HBox inputPane = new HBox();
+        inputPane.setSpacing(10);
+
+        name = new Text("...");
+        name.setFont(new Font("Ubuntu", 20));
+        TextField chatInput = new TextField();
+        Button sendButton = new Button("Send");
+
+        inputPane.getChildren().add(name);
+        inputPane.getChildren().add(chatInput);
+        inputPane.getChildren().add(sendButton);
+
+        this.toGUI(new ChatObj("System", "What is your name?"));
+
+        sendButton.setOnMouseClicked(event -> {
+            ChatObj newChat;
+            if (this.client== null) {
+                if (this.name.getText().equals("...")) {
+                    this.name.setText(chatInput.getText());
+                    chatInput.setText("");
+                    this.toGUI(new ChatObj("System", "Setting your name to '" + name.getText() + "'"));
+                    this.toGUI(new ChatObj("System", "What is the host IP adress?"));
+                }
+                else if (this.hostname == null) {
+                    this.hostname = chatInput.getText();
+                    chatInput.setText("");
+                    this.toGUI(new ChatObj("System", "What is the host port?"));
+                }
+                else {
+                    try {
+                        this.port = Integer.parseInt(chatInput.getText().trim());
+                        this.toGUI(new ChatObj("System", "Connecting to " + this.hostname + ":" + this.port));
+                        this.client = new Client(this.hostname, this.port, this);
+                        this.client.start();
+                    }
+                    catch (NumberFormatException ex) {
+                        this.toGUI(new ChatObj("ERROR", "Invalid port number"));
+                    }
+                }
+            }
+            else {
+                newChat = new ChatObj(name.getText(), chatInput.getText());
+                this.toGUI(newChat);
+                this.client.toServer(newChat);
+            }
+        });
+
+        return inputPane;
+    }
+
+    public void toGUI(ChatObj msg) {
+        Text text = new Text(msg.toString());
+        text.setFont(new Font("Ubuntu", 16));
+        text.setFill(Color.WHITE);
+//        text.setStroke(Color.BLACK);
+        this.chat.getChildren().add(text);
     }
 
 }

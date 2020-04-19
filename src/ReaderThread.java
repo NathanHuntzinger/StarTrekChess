@@ -8,9 +8,9 @@ public class ReaderThread extends Thread {
     private ObjectInputStream inputStream;
     private Client client;
     private Socket socket;
-    private ChatGUI GUI;
+    private GUITest GUI;
 
-    public ReaderThread(Socket socket, Client client, ChatGUI GUI) {
+    public ReaderThread(Socket socket, Client client, GUITest GUI) {
 //        System.out.println("Creating Reader Thread");
         this.client = client;
         this.socket = socket;
@@ -19,22 +19,20 @@ public class ReaderThread extends Thread {
 
     public void run() {
 //        System.out.println("Starting Reader Thread.");
-        while (true) {
-            try {
-                inputStream = new ObjectInputStream(socket.getInputStream());
+        try {
+            inputStream = new ObjectInputStream(socket.getInputStream());
 
+            while (true) {
                 Object payload = inputStream.readObject();
                 if (payload instanceof ChatObj) {
-                    System.out.flush();
 //                    System.out.println(payload.toString());
                     Platform.runLater(() -> GUI.toGUI((ChatObj) payload));
                 }
             }
-            catch (IOException | ClassNotFoundException ex) {
-                System.out.println("Error reading from server: " + ex.getMessage());
-                ex.printStackTrace();
-                break;
-            }
+        }
+        catch (IOException | ClassNotFoundException ex) {
+            System.out.println("Error reading from server: " + ex.getMessage());
+            ex.printStackTrace();
         }
     }
 }

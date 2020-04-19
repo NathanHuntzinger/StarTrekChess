@@ -2,19 +2,18 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class Client {
     private String hostname;
     private int port;
     private Socket socket;
     private String playerName = "Dummy Name";
-    private WriterThread writerThread;
+//    private WriterThread writerThread;
     private ReaderThread readerThread;
     private ObjectOutputStream outputStream;
-    private ChatGUI GUI;
+    private GUITest GUI;
 
-    public Client(String hostname, int port, ChatGUI GUI) {
+    public Client(String hostname, int port, GUITest GUI) {
         this.hostname = hostname;
         this.port = port;
         this.GUI = GUI;
@@ -41,9 +40,9 @@ public class Client {
 
     public void setPlayerName(String name) {
         this.playerName = name;
-        if (this.writerThread != null) {
-            this.writerThread.userName = name;
-        }
+//        if (this.writerThread != null) {
+//            this.writerThread.userName = name;
+//        }
     }
 
     public String getPlayerName() {
