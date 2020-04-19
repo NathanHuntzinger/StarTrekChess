@@ -450,6 +450,7 @@ public class GUITest extends Application {
         inputPane.setSpacing(10);
 
         name = new Text("...");
+        name.setFill(Color.WHITE);
         name.setFont(new Font("Ubuntu", 20));
         TextField chatInput = new TextField();
         Button sendButton = new Button("Send");
