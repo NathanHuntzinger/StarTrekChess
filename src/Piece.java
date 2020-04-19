@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Piece {
+public class Piece implements Serializable {
     protected Player player;
     protected GameBoard gameBoard;
     protected BoardPosition position;

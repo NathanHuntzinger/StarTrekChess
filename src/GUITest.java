@@ -25,12 +25,14 @@ public class GUITest extends Application {
         launch(args);
     }
 
+    Game myGame;
+
     @Override
     public void start(Stage primaryStage) {
 
         AtomicInteger currentLevel = new AtomicInteger(6);
         primaryStage.setTitle("Star Trek Chess");
-        Game myGame = new Game();
+        this.myGame = new Game();
 
         AtomicReference<BoardPosition> moveFrom = new AtomicReference<>(new BoardPosition());
         AtomicReference<BoardPosition> moveTo = new AtomicReference<>(new BoardPosition());
@@ -122,7 +124,9 @@ public class GUITest extends Application {
                         } else {
                             if (myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()).isValidSpace()) {
                                 moveTo.set(myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()));
-                                myGame.executeMove(new Move(moveFrom.get(), moveTo.get()));
+                                Move move = new Move(moveFrom.get(), moveTo.get());
+                                myGame.executeMove(move);
+                                client.toServer(move);
                                 pieceSelected.set(false);
                                 System.out.println("A piece was moved");
                                 updateBoard(myGame, board, levels, images);
@@ -461,9 +465,10 @@ public class GUITest extends Application {
 
         this.toGUI(new ChatObj("System", "What is your name?"));
 
-        sendButton.setOnMouseClicked(event -> {
+        chatInput.setOnKeyPressed(e -> { if (e.getCode().equals(KeyCode.ENTER)) { sendButton.fire(); } });
+        sendButton.setOnAction(event -> {
             ChatObj newChat;
-            if (this.client== null) {
+            if (this.client == null) {
                 if (this.name.getText().equals("...")) {
                     this.name.setText(chatInput.getText());
                     chatInput.setText("");
@@ -478,6 +483,7 @@ public class GUITest extends Application {
                 else {
                     try {
                         this.port = Integer.parseInt(chatInput.getText().trim());
+                        chatInput.setText("");
                         this.toGUI(new ChatObj("System", "Connecting to " + this.hostname + ":" + this.port));
                         this.client = new Client(this.hostname, this.port, this);
                         this.client.start();
@@ -487,8 +493,9 @@ public class GUITest extends Application {
                     }
                 }
             }
-            else {
+            else {  // Send a message to the server
                 newChat = new ChatObj(name.getText(), chatInput.getText());
+                chatInput.setText("");
                 this.toGUI(newChat);
                 this.client.toServer(newChat);
             }
@@ -497,12 +504,22 @@ public class GUITest extends Application {
         return inputPane;
     }
 
-    public void toGUI(ChatObj msg) {
-        Text text = new Text(msg.toString());
-        text.setFont(new Font("Ubuntu", 16));
-        text.setFill(Color.WHITE);
-//        text.setStroke(Color.BLACK);
-        this.chat.getChildren().add(text);
+    public void toGUI(Object msg) {
+        if (msg instanceof ChatObj) {
+            Text text = new Text(msg.toString());
+            text.setFont(new Font("Ubuntu", 16));
+            text.setFill(Color.WHITE);
+            this.chat.getChildren().add(text);
+        }
+        else if (msg instanceof Move) {
+            myGame.executeMove((Move) msg);
+            updateBoard();
+        }
+        else if (msg instanceof MovableBoardMove) {
+            myGame.executeMovableBoardMove((MovableBoardMove) msg);
+        }
+        else {
+            System.out.println("Invalid Object type received from server");
+        }
     }
-
 }

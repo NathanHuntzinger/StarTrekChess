@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 //GameBoard dimensions: rows: 10, cols: 6, levels: 7
-public class GameBoard {
+public class GameBoard implements Serializable {
     private ArrayList<ArrayList<ArrayList<BoardPosition>>> board;
     private StaticBoard lowerBoard;
     private StaticBoard middleBoard;

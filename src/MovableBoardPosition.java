@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MovableBoardPosition {
+public class MovableBoardPosition implements Serializable {
     private ArrayList<ArrayList<BoardPosition>> boardSection;
     private MovableBoard movableBoard;
 
