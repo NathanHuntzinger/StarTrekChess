@@ -136,6 +136,10 @@ public class Pawn extends Piece{
         this.hasMoved = hasMoved;
     }
 
+    public boolean hasMoved() {
+        return hasMoved;
+    }
+
     @Override
     public void print() {
         if(player.getPlayerNumber() == 1) {
