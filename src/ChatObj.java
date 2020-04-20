@@ -19,6 +19,6 @@ public class ChatObj implements Serializable {
 
     @Override
     public String toString() {
-        return "[" + playerName + "]: " + msg;
+        return "[" + playerName + "]:  " + msg;
     }
 }
