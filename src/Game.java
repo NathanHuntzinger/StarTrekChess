@@ -23,20 +23,22 @@ public class Game {
     }
 
     public void executeMovableBoardMove(MovableBoardMove move){
+        MovableBoardPosition from = gameBoard.getBoardPosition(move.getFromID());
+        MovableBoardPosition to = gameBoard.getBoardPosition(move.getToID());
         for (int r = 1; r >= 0; r --){
             for (int c = 0; c <= 1; c++){
-                if(move.getFrom().getBoardSection().get(r).get(c).getPiece() != null) {
-                    move.getFrom().getBoardSection().get(r).get(c).getPiece().setPosition(move.getTo().getBoardSection().get(r).get(c));
+                if(from.getBoardSection().get(r).get(c).getPiece() != null) {
+                    from.getBoardSection().get(r).get(c).getPiece().setPosition(to.getBoardSection().get(r).get(c));
                 }
-                move.getTo().getBoardSection().get(r).get(c).setPiece(move.getFrom().getBoardSection().get(r).get(c).getPiece());
-                move.getTo().getBoardSection().get(r).get(c).setValidSpace(true);
-                move.getFrom().getBoardSection().get(r).get(c).setPiece(null);
-                move.getFrom().getBoardSection().get(r).get(c).setValidSpace(false);
+                to.getBoardSection().get(r).get(c).setPiece(from.getBoardSection().get(r).get(c).getPiece());
+                to.getBoardSection().get(r).get(c).setValidSpace(true);
+                from.getBoardSection().get(r).get(c).setPiece(null);
+                from.getBoardSection().get(r).get(c).setValidSpace(false);
             }
         }
-        move.getFrom().getMovableBoard().setBoard(move.getTo().getBoardSection());
-        move.getTo().setMovableBoard(move.getFrom().getMovableBoard());
-        move.getFrom().getMovableBoard().setPosition(move.getTo());
+        from.getMovableBoard().setBoard(to.getBoardSection());
+        to.setMovableBoard(from.getMovableBoard());
+        from.getMovableBoard().setPosition(to);
     }
 
     public GameBoard getGameBoard() {
