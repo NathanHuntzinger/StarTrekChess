@@ -26,8 +26,12 @@ public class GUITest extends Application {
         launch(args);
     }
 
-    Game myGame;
-    Text playerInfo;
+    private Game myGame;
+    private ArrayList<ArrayList<ArrayList<BoardPosition>>> board;
+    private ArrayList<Image> images;
+    private ArrayList<GridPane> levels;
+    
+    private Text playerInfo;
 
     @Override
     public void start(Stage primaryStage) {
@@ -59,13 +63,13 @@ public class GUITest extends Application {
 
         mainPane.setOnMouseClicked(e -> mainPane.requestFocus());
 
-        ArrayList<GridPane> levels = new ArrayList<>();
+        this.levels = new ArrayList<>();
         for (int i = 0; i < 7; i++){
             levels.add(new GridPane());
             gameBoardStack.getChildren().add(levels.get(i));
         }
 
-        ArrayList<ArrayList<ArrayList<BoardPosition>>> board = myGame.getGameBoard().getBoard();
+        this.board = myGame.getGameBoard().getBoard();
 
         BackgroundImage myBI= new BackgroundImage(new Image(GUITest.class.getResourceAsStream("background.jpg"), 2000, 800, true, false),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
@@ -98,7 +102,7 @@ public class GUITest extends Application {
         Image king_w_2_image = new Image(GUITest.class.getResourceAsStream("king_w_2.png"), 45, 45, false, false);
         Image king_b_2_image = new Image(GUITest.class.getResourceAsStream("king_b_2.png"), 45, 45, false, false);
 
-        ArrayList<Image> images = new ArrayList<>();
+        this.images = new ArrayList<>();
         images.add(pawn_w_image);
         images.add(rook_w_image);
         images.add(knight_w_image);
@@ -132,7 +136,7 @@ public class GUITest extends Application {
                 images.add(king_b_image);
 
                 usingStarTrekPieces.set(false);
-                updateBoard(myGame, board, levels, images);
+                updateBoard();
             }
             else{
                 images.clear();
@@ -150,7 +154,7 @@ public class GUITest extends Application {
                 images.add(king_b_2_image);
 
                 usingStarTrekPieces.set(true);
-                updateBoard(myGame, board, levels, images);
+                updateBoard();
             }
         });
 
@@ -207,7 +211,7 @@ public class GUITest extends Application {
                                     }
                                 }
                                 System.out.println("A piece was moved");
-                                updateBoard(myGame, board, levels, images);
+                                updateBoard();
                             }
                         }
                     }
@@ -249,7 +253,7 @@ public class GUITest extends Application {
                                             boardSelected.set(false);
                                             selectMovableBoard.set(false);
                                             System.out.println("A board was moved");
-                                            updateBoard(myGame, board, levels, images);
+                                            updateBoard();
                                         }
                                     }
                                 }
@@ -413,7 +417,7 @@ public class GUITest extends Application {
                 pieceSelected.set(false);
                 moveFrom.set(null);
                 boardMoveFrom.set(null);
-                updateBoard(myGame, board, levels, images);
+                updateBoard();
             }
             else if (e.getCode() == KeyCode.SHIFT) {
                 System.out.println("Entering board selection mode");
@@ -441,7 +445,7 @@ public class GUITest extends Application {
         return null;
     }
 
-    private void updateBoard(Game myGame, ArrayList<ArrayList<ArrayList<BoardPosition>>> board, ArrayList<GridPane> levels, ArrayList<Image> images){
+    private void updateBoard(){
         for (int r = 0; r < board.size(); r++) {
             for (int c = 0; c < board.get(r).size(); c++) {
                 for (int l = 0; l < board.get(r).get(c).size(); l++) {
@@ -610,11 +614,12 @@ public class GUITest extends Application {
             this.chat.getChildren().add(text);
         }
         else if (msg instanceof Move) {
-            myGame.executeMove((Move) msg);
-//            updateBoard();
+//            myGame.executeMove((Move) msg);
+            updateBoard();
         }
         else if (msg instanceof MovableBoardMove) {
-            myGame.executeMovableBoardMove((MovableBoardMove) msg);
+//            myGame.executeMovableBoardMove((MovableBoardMove) msg);
+            updateBoard();
         }
         else if (msg instanceof PlayerInfo) {
             PlayerInfo payload = (PlayerInfo) msg;
