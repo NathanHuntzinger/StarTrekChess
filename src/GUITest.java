@@ -1,5 +1,4 @@
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -16,6 +15,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
@@ -27,6 +27,7 @@ public class GUITest extends Application {
     }
 
     Game myGame;
+    Text playerInfo;
 
     @Override
     public void start(Stage primaryStage) {
@@ -50,6 +51,13 @@ public class GUITest extends Application {
 
         VBox chatPane = setUpChat();
         mainPane.setRight(chatPane);
+
+        playerInfo = new Text("Please connect to a server");
+        playerInfo.setFont(new Font("Ubuntu", 40));
+        playerInfo.setFill(Color.YELLOW);
+        mainPane.setTop(playerInfo);
+
+        mainPane.setOnMouseClicked(e -> mainPane.requestFocus());
 
         ArrayList<GridPane> levels = new ArrayList<>();
         for (int i = 0; i < 7; i++){
@@ -360,7 +368,7 @@ public class GUITest extends Application {
             }
         }
 
-        Scene scene = new Scene(mainPane, 600, 600);
+        Scene scene = new Scene(mainPane, 700, 600);
 
         scene.setOnKeyTyped(e->{
             Character levelChar = e.getCharacter().charAt(0);
@@ -519,8 +527,7 @@ public class GUITest extends Application {
         HBox input = createChatInputPane();
 
         mainChatPane.setSpacing(10);
-        mainChatPane.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-        mainChatPane.setOpacity(.5);
+        mainChatPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-background-radius: 10;");
         mainChatPane.setMinWidth(300);
 
         mainChatPane.getChildren().add(chat);
@@ -572,6 +579,12 @@ public class GUITest extends Application {
                     catch (NumberFormatException ex) {
                         this.toGUI(new ChatObj("ERROR", "Invalid port number"));
                     }
+                    catch (IOException ex) {
+                        this.toGUI(new ChatObj("System", "Host not found"));
+                        this.toGUI(new ChatObj("System", "What is the host IP adress?"));
+                        this.hostname = null;
+                        this.client = null;
+                    }
                 }
             }
             else {  // Send a message to the server
@@ -587,17 +600,25 @@ public class GUITest extends Application {
 
     public void toGUI(Object msg) {
         if (msg instanceof ChatObj) {
+            if (this.chat.getChildren().size() >= 28) {
+                this.chat.getChildren().remove(0);
+            }
             Text text = new Text(msg.toString());
             text.setFont(new Font("Ubuntu", 16));
             text.setFill(Color.WHITE);
+            text.setWrappingWidth(400);
             this.chat.getChildren().add(text);
         }
         else if (msg instanceof Move) {
             myGame.executeMove((Move) msg);
-            updateBoard();
+//            updateBoard();
         }
         else if (msg instanceof MovableBoardMove) {
             myGame.executeMovableBoardMove((MovableBoardMove) msg);
+        }
+        else if (msg instanceof PlayerInfo) {
+            PlayerInfo payload = (PlayerInfo) msg;
+            playerInfo.setText("You are Player " + payload.playerNumber);
         }
         else {
             System.out.println("Invalid Object type received from server");
