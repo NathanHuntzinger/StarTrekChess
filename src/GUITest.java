@@ -1,4 +1,6 @@
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -14,7 +16,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -53,6 +57,8 @@ public class GUITest extends Application {
         BorderPane mainPane = new BorderPane();
         mainPane.setCenter(gameBoardStack);
 
+        gameBoardStack.setOpacity(0);
+
         VBox chatPane = setUpChat();
         mainPane.setRight(chatPane);
 
@@ -60,6 +66,12 @@ public class GUITest extends Application {
         playerInfo.setFont(new Font("Ubuntu", 40));
         playerInfo.setFill(Color.YELLOW);
         mainPane.setTop(playerInfo);
+        playerInfo.textProperty().addListener((a, b, c) -> {
+            FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), gameBoardStack);
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.play();
+        });
 
         mainPane.setOnMouseClicked(e -> mainPane.requestFocus());
 
@@ -272,6 +284,7 @@ public class GUITest extends Application {
                 return col;
             }
         }
+
 
         //first initializes the board.
         for (int r = 0; r < board.size(); r++) {
