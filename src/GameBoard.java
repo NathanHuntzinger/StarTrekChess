@@ -39,6 +39,7 @@ public class GameBoard implements Serializable {
         movableBoardPositions.add(new MovableBoardPosition(0,1,4,5,0,board, 1)); //1
         movableBoardPositions.add(new MovableBoardPosition(4,5,0,1,0,board, 2)); //2
         movableBoardPositions.add(new MovableBoardPosition(4,5,4,5,0,board, 3)); //3
+
         movableBoardPositions.add(new MovableBoardPosition(0,1,0,1,2,board, 4)); //4 --starting pos
         movableBoardPositions.add(new MovableBoardPosition(0,1,4,5,2,board, 5)); //5 --starting pos
         movableBoardPositions.add(new MovableBoardPosition(4,5,0,1,2,board, 6)); //6
@@ -48,6 +49,7 @@ public class GameBoard implements Serializable {
         movableBoardPositions.add(new MovableBoardPosition(2,3,4,5,2,board, 9)); //9
         movableBoardPositions.add(new MovableBoardPosition(6,7,0,1,2,board, 10)); //10
         movableBoardPositions.add(new MovableBoardPosition(6,7,4,5,2,board, 11)); //11
+
         movableBoardPositions.add(new MovableBoardPosition(2,3,0,1,4,board, 12)); //12
         movableBoardPositions.add(new MovableBoardPosition(2,3,4,5,4,board, 13)); //13
         movableBoardPositions.add(new MovableBoardPosition(6,7,0,1,4,board, 14)); //14
@@ -57,6 +59,7 @@ public class GameBoard implements Serializable {
         movableBoardPositions.add(new MovableBoardPosition(4,5,4,5,4,board, 17)); //17
         movableBoardPositions.add(new MovableBoardPosition(8,9,0,1,4,board, 18)); //18
         movableBoardPositions.add(new MovableBoardPosition(8,9,4,5,4,board, 19)); //19
+
         movableBoardPositions.add(new MovableBoardPosition(4,5,0,1,6,board, 20)); //20
         movableBoardPositions.add(new MovableBoardPosition(4,5,4,5,6,board, 21)); //21
         movableBoardPositions.add(new MovableBoardPosition(8,9,0,1,6,board, 22)); //22 --starting pos
