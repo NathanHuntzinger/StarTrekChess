@@ -8,6 +8,7 @@ public class Queen extends Piece{
         this.position = position;
         this.player = player;
         this.moves = new ArrayList<>();
+        this.dead = false;
     }
 
     @Override
@@ -21,6 +22,9 @@ public class Queen extends Piece{
     }
 
     ArrayList<BoardPosition> getMoves() {
+        if(this.dead){
+            return new ArrayList<>();
+        }
         this.moves = new ArrayList<>();
         for(int iterator1 = -1; iterator1 <= 1; iterator1 ++){
             for(int iterator2 = -1; iterator2 <= 1; iterator2++) {
@@ -45,7 +49,7 @@ public class Queen extends Piece{
                     || getGameBoard().getPosition(row, col, level + l).getPiece().getPlayer() != this.getPlayer())){
 
                 moves.add(getGameBoard().getPosition(row, col, level + l));
-                if(getGameBoard().getPosition(row, col, level + l).getPiece() == null || getGameBoard().getPosition(row, col, level + l).getPiece() instanceof King) {
+                if(getGameBoard().getPosition(row, col, level + l).getPiece() == null || (!getGameBoard().getPosition(row, col, level + l).getPiece().isDead() && getGameBoard().getPosition(row, col, level + l).getPiece() instanceof King)) {
                     getMovesRecursive(row + rowDirection, col + colDirection, level + l, rowDirection, colDirection);
                 }
             }

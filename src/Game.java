@@ -17,6 +17,7 @@ public class Game {
         BoardPosition from = gameBoard.getPosition(move.getFromRow(), move.getFromCol(), move.getFromLevel());
         BoardPosition to = gameBoard.getPosition(move.getToRow(), move.getToCol(), move.getToLevel());
         if(to.getPiece() != null){
+            to.getPiece().setDead(true);
             to.getPiece().setPosition(null);
         }
         from.getPiece().setPosition(to);

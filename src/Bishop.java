@@ -7,6 +7,7 @@ public class Bishop extends Piece{
         this.gameBoard = gameBoard;
         this.position = position;
         this.player = player;
+        this.dead = false;
     }
 
     @Override
@@ -20,6 +21,9 @@ public class Bishop extends Piece{
     }
 
     ArrayList<BoardPosition> getMoves() {
+        if(this.dead){
+            return new ArrayList<>();
+        }
         this.moves = new ArrayList<>();
         for(int iterator1 = -1; iterator1 <= 1; iterator1 += 2){
             for(int l = -1; l <= 1; l++) {
@@ -48,7 +52,7 @@ public class Bishop extends Piece{
                     || getGameBoard().getPosition(row, col, level + l).getPiece().getPlayer() != this.getPlayer())){
 
                 moves.add(getGameBoard().getPosition(row, col, level + l));
-                if(getGameBoard().getPosition(row, col, level + l).getPiece() == null || getGameBoard().getPosition(row, col, level + l).getPiece() instanceof King) {
+                if(getGameBoard().getPosition(row, col, level + l).getPiece() == null || (!getGameBoard().getPosition(row, col, level + l).getPiece().isDead() && getGameBoard().getPosition(row, col, level + l).getPiece() instanceof King)) {
                     getMovesRecursive(row + rowDirection, col + colDirection, level + l, rowDirection, colDirection);
                 }
             }

@@ -5,6 +5,7 @@ public class King extends Piece{
         this.position = position;
         this.player = player;
         this.gameBoard = gameBoard;
+        this.dead = false;
     }
 
     @Override
@@ -17,6 +18,9 @@ public class King extends Piece{
         }
     }
     ArrayList<BoardPosition> getMoves() {
+        if(this.dead){
+            return new ArrayList<>();
+        }
         ArrayList<BoardPosition> opponentMoves = this.player.getOpponentMoves();
         ArrayList<BoardPosition> moves = new ArrayList<>();
         for(int r = -1; r <= 1; r++){
@@ -36,6 +40,9 @@ public class King extends Piece{
     }
 
     ArrayList<BoardPosition> getMovesFull() {
+        if(this.dead){
+            return new ArrayList<>();
+        }
         ArrayList<BoardPosition> moves = new ArrayList<>();
         for(int r = -1; r <= 1; r++){
             for(int c = -1; c <= 1; c++){

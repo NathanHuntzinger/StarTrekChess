@@ -5,9 +5,18 @@ public class Piece implements Serializable {
     protected Player player;
     protected GameBoard gameBoard;
     protected BoardPosition position;
+    protected boolean dead;
 
     Piece(){
+        this.dead = false;
+    }
 
+    public boolean isDead() {
+        return dead;
+    }
+
+    public void setDead(boolean dead) {
+        this.dead = dead;
     }
 
     public int getRow(){

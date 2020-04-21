@@ -8,10 +8,14 @@ public class Pawn extends Piece{
         hasMoved = false;
         this.position = position;
         this.player = player;
+        this.dead = false;
     }
 
     @Override
     ArrayList<BoardPosition> getMoves() {
+        if(this.dead){
+            return new ArrayList<>();
+        }
         ArrayList<BoardPosition> moves = new ArrayList<>();
         if(getPlayer().getPlayerNumber() == 1) {
             if(getGameBoard().isValidPosition(this.getRow() - 1, this.getCol(), this.getLevel()) && getGameBoard().getPosition(this.getRow() - 1, this.getCol(), this.getLevel()).getPiece() == null){
