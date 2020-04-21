@@ -128,10 +128,8 @@ public class GUITest extends Application {
         AudioClip phaserBlast = new AudioClip(Paths.get("src/data/phaser_blasts.mp3").toUri().toString());
 
         CheckBox pieceToggle = new CheckBox("Use themed pieces?");
-        StackPane bottomStack = new StackPane(new Rectangle(130,17, new Color(0.5,0.5,0.55,1)));
-        bottomStack.getChildren().add(pieceToggle);
-        bottomStack.setAlignment(Pos.BOTTOM_LEFT);
-        mainPane.setBottom(bottomStack);
+        pieceToggle.setTextFill(Color.YELLOW);
+        mainPane.setBottom(pieceToggle);
 
         pieceToggle.setOnAction(e->{
             if(usingStarTrekPieces.get()){
