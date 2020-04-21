@@ -206,6 +206,7 @@ public class GUITest extends Application {
                         else {
                             if (myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()) != moveFrom.get()
                                     && myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()).isValidSpace()
+                                    && moveFrom.get().getPiece().getMoves() != null
                                     && moveFrom.get().getPiece().getMoves().contains(myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()))
                             ) {
                                 moveTo.set(myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()));
@@ -299,6 +300,7 @@ public class GUITest extends Application {
                                     for(int c = 0; c < section.get(r).size(); c++){
                                         if(myGame.getGameBoard().getMovableBoardPositions().get(i) != boardMoveFrom.get()
                                                 && section.get(r).get(c) == myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get())
+                                                && boardMoveFrom.get().getMovableBoard().getMoves() != null
                                                 && boardMoveFrom.get().getMovableBoard().getMoves().contains(myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()))
                                         ){
                                             boardMoveTo.set(myGame.getGameBoard().getMovableBoardPositions().get(i));
