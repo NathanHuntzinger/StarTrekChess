@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -16,6 +17,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
@@ -102,6 +104,9 @@ public class GUITest extends Application {
         images.add(queen_b_image);
         images.add(king_b_image);
 
+        AudioClip transporterBeam = new AudioClip(Paths.get("src/Transporter_Beam.mp3").toUri().toString());
+        AudioClip phaserBlast = new AudioClip(Paths.get("src/phaser_blasts.mp3").toUri().toString());
+
         CheckBox pieceToggle = new CheckBox("Use themed pieces?");
         mainPane.setBottom(pieceToggle);
 
@@ -177,8 +182,16 @@ public class GUITest extends Application {
                                 }
                             }
                         } else {
-                            if (myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()).isValidSpace()) {
+                            if (myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()) != moveFrom.get()
+                                    && myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()).isValidSpace()) {
                                 moveTo.set(myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()));
+                                if(moveTo.get().getPiece() != null){
+                                    phaserBlast.play();
+                                }
+                                else{
+                                    transporterBeam.play();
+                                }
+
                                 myGame.executeMove(new Move(moveFrom.get(), moveTo.get()));
                                 pieceSelected.set(false);
                                 if(moveTo.get().getPiece() instanceof Pawn && ((Pawn) moveTo.get().getPiece()).hasMoved() == false){
@@ -218,12 +231,7 @@ public class GUITest extends Application {
                             for (BoardPosition move : possibleMoves){
                                 StackPane stack = (StackPane) getNodeFromGridPane(levels.get(move.getLevel()), move.getCol(), move.getRow());
                                 Rectangle rect = (Rectangle) stack.getChildren().get(0);
-                                if(move.getPiece() != null){
-                                    rect.setFill(Color.RED);
-                                }
-                                else {
-                                    rect.setFill(Color.BLUE);
-                                }
+                                rect.setFill(Color.BLUE);
                             }
                         }
                         else{
@@ -231,7 +239,8 @@ public class GUITest extends Application {
                                 ArrayList<ArrayList<BoardPosition>> section = myGame.getGameBoard().getMovableBoardPositions().get(i).getBoardSection();
                                 for(int r = 0; r < section.size(); r ++){
                                     for(int c = 0; c < section.get(r).size(); c++){
-                                        if(section.get(r).get(c) == myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get())){
+                                        if(myGame.getGameBoard().getMovableBoardPositions().get(i) != boardMoveFrom.get()
+                                              &&  section.get(r).get(c) == myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get())){
                                             boardMoveTo.set(myGame.getGameBoard().getMovableBoardPositions().get(i));
                                             myGame.executeMovableBoardMove(new MovableBoardMove(boardMoveFrom.get(), boardMoveTo.get()));
                                             boardSelected.set(false);
