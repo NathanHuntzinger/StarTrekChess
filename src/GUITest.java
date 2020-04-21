@@ -289,12 +289,7 @@ public class GUITest extends Application {
                             for (BoardPosition move : possibleMoves){
                                 StackPane stack = (StackPane) getNodeFromGridPane(levels.get(move.getLevel()), move.getCol(), move.getRow());
                                 Rectangle rect = (Rectangle) stack.getChildren().get(0);
-                                if(move.getPiece() != null){
-                                    rect.setFill(Color.RED);
-                                }
-                                else {
-                                    rect.setFill(Color.BLUE);
-                                }
+                                rect.setFill(Color.BLUE);
                             }
                         }
                         else{
@@ -304,7 +299,7 @@ public class GUITest extends Application {
                                     for(int c = 0; c < section.get(r).size(); c++){
                                         if(myGame.getGameBoard().getMovableBoardPositions().get(i) != boardMoveFrom.get()
                                                 && section.get(r).get(c) == myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get())
-//                                                && board
+                                                && boardMoveFrom.get().getMovableBoard().getMoves().contains(myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()))
                                         ){
                                             boardMoveTo.set(myGame.getGameBoard().getMovableBoardPositions().get(i));
                                             transporterBeam.play();
