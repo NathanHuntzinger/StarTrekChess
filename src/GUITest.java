@@ -275,7 +275,9 @@ public class GUITest extends Application {
                                                 section.get(r).get(c) == myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get())){
                                             boardMoveTo.set(myGame.getGameBoard().getMovableBoardPositions().get(i));
                                             transporterBeam.play();
-                                            myGame.executeMovableBoardMove(new MovableBoardMove(boardMoveFrom.get(), boardMoveTo.get()));
+                                            MovableBoardMove boardMove = new MovableBoardMove(boardMoveFrom.get(), boardMoveTo.get());
+                                            myGame.executeMovableBoardMove(boardMove);
+                                            client.toServer(boardMove);
                                             boardSelected.set(false);
                                             selectMovableBoard.set(false);
                                             System.out.println("A board was moved");
