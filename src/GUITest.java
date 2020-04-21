@@ -238,6 +238,22 @@ public class GUITest extends Application {
                                     }
                                 }
                                 System.out.println("A piece was moved");
+                                if(myGame.getPlayer1().checkForCheck()){
+                                    if(myGame.getPlayer1().checkForCheckmate()){
+                                        System.out.println("Player 1 is in Checkmate!");
+                                    }
+                                    else{
+                                        System.out.println("Player 1 is in Check!");
+                                    }
+                                }
+                                if(myGame.getPlayer2().checkForCheck()){
+                                    if(myGame.getPlayer2().checkForCheckmate()){
+                                        System.out.println("Player 2 is in Checkmate!");
+                                    }
+                                    else{
+                                        System.out.println("Player 2 is in Check!");
+                                    }
+                                }
                                 updateBoard();
                             }
                         }

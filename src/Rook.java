@@ -49,7 +49,7 @@ public class Rook extends Piece{
                     || getGameBoard().getPosition(row, col, level + l).getPiece().getPlayer() != this.getPlayer())){
 
                 moves.add(getGameBoard().getPosition(row, col, level + l));
-                if(getGameBoard().getPosition(row, col, level + l).getPiece() == null) {
+                if(getGameBoard().getPosition(row, col, level + l).getPiece() == null || getGameBoard().getPosition(row, col, level + l).getPiece() instanceof King) {
                     getMovesRecursive(row + rowDirection, col + colDirection, level + l, rowDirection, colDirection);
                 }
             }

@@ -121,11 +121,22 @@ public class Player implements Serializable {
     }
 
     public boolean checkForCheck(){
-        return false; //change this
+        if(this.getOpponentMoves().contains(this.getKing().getPosition())){
+            return true;
+        }
+        return false;
     }
 
     public boolean checkForCheckmate(){
+        if(this.checkForCheck() && this.getKing().getMoves().size() == 0){
+            return true;
+        }
+
         return false; //change this
+    }
+
+    public King getKing(){
+        return (King) this.pieces.get(12);
     }
 
     public ArrayList<BoardPosition> getAllMoves(){
