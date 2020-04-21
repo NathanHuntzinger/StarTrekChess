@@ -214,6 +214,9 @@ public class GUITest extends Application {
                                 moveTo.set(myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()));
                                 if(moveTo.get().getPiece() != null){
                                     phaserBlast.play();
+                                    ChatObj deathMessage = new ChatObj("System", "A piece was captured");
+                                    toGUI(deathMessage);
+                                    client.toServer(deathMessage);
                                 }
                                 else{
                                     transporterBeam.play();
