@@ -121,7 +121,6 @@ public class Player implements Serializable {
     }
 
     public boolean checkForCheck(){
-        System.out.println("Checking for Check");
         if(this.getOpponentMoves().contains(this.getKing().getPosition())){
             return true;
         }
@@ -129,7 +128,6 @@ public class Player implements Serializable {
     }
 
     public boolean checkForCheckmate(){
-        System.out.println("Checking for Checkmate");
         if(this.checkForCheck() && this.getKing().getMoves().size() == 0){
             return true;
         }

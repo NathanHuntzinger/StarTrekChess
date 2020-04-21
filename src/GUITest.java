@@ -697,7 +697,7 @@ public class GUITest extends Application {
 
     public void toGUI(Object msg) {
         if (msg instanceof ChatObj) {
-            if (this.chat.getChildren().size() >= 28) {
+            if (this.chat.getChildren().size() >= 22) {
                 this.chat.getChildren().remove(0);
             }
             Text text = new Text(msg.toString());
