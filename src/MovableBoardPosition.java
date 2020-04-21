@@ -35,6 +35,16 @@ public class MovableBoardPosition implements Serializable {
         return boardSection;
     }
 
+    public ArrayList<BoardPosition> getAllPositions(){
+        ArrayList<BoardPosition> positions = new ArrayList<>();
+        for(int r = 0; r < this.boardSection.size(); r++){
+            for(int c = 0; c < this.boardSection.get(r).size(); c++){
+                positions.add(this.boardSection.get(r).get(c));
+            }
+        }
+        return positions;
+    }
+
     public void setMovableBoard(MovableBoard movableBoard) {
         this.movableBoard = movableBoard;
     }

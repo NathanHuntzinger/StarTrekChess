@@ -24,51 +24,78 @@ public class MovableBoard implements Serializable {
     public ArrayList<BoardPosition> getMoves(){
         ArrayList<BoardPosition> moves = new ArrayList<>();
         if(isBoardEmptyExceptForOnePawn()){
-            for (int r = 0; r < this.board.size(); r ++){
-                for(int c = 0; c < this.board.get(r).size(); c++) {
-                    if(this.gameBoard.isInsideBoard(r+4, c, this.level) && !this.gameBoard.getPosition(r+4, c, this.level).isValidSpace()){
-                        moves.add(this.gameBoard.getPosition(r+4, c, this.level));
-                    }
-                    if(this.gameBoard.isInsideBoard(r-4, c, this.level) && !this.gameBoard.getPosition(r-4, c, this.level).isValidSpace()){
-                        moves.add(this.gameBoard.getPosition(r-4, c, this.level));
-                    }
-                    if(this.gameBoard.isInsideBoard(r, c + 4, this.level) && !this.gameBoard.getPosition(r, c + 4, this.level).isValidSpace()) {
-                        moves.add(this.gameBoard.getPosition(r, c + 4, this.level));
-                    }
-                    if(this.gameBoard.isInsideBoard(r, c-4, this.level) && !this.gameBoard.getPosition(r, c - 4, this.level).isValidSpace()){
-                        moves.add(this.gameBoard.getPosition(r, c-4, this.level));
-                    }
+            if(this.position.getId() % 4 == 0){
+                if(this.gameBoard.getBoardPosition(this.position.getId() + 1).getMovableBoard() == null){
+                    moves.addAll(this.gameBoard.getBoardPosition(this.position.getId() + 1).getAllPositions());
+                }
+                if(this.gameBoard.getBoardPosition(this.position.getId() + 2).getMovableBoard() == null){
+                    moves.addAll(this.gameBoard.getBoardPosition(this.position.getId() + 2).getAllPositions());
+                }
+            }
+            else if(this.position.getId() % 4 == 1){
+                if(this.gameBoard.getBoardPosition(this.position.getId() - 1).getMovableBoard() == null){
+                    moves.addAll(this.gameBoard.getBoardPosition(this.position.getId() - 1).getAllPositions());
+                }
+                if(this.gameBoard.getBoardPosition(this.position.getId() + 2).getMovableBoard() == null){
+                    moves.addAll(this.gameBoard.getBoardPosition(this.position.getId() + 2).getAllPositions());
+                }
+            }
+            else if(this.position.getId() % 4 == 2){
+                if(this.gameBoard.getBoardPosition(this.position.getId() + 1).getMovableBoard() == null){
+                    moves.addAll(this.gameBoard.getBoardPosition(this.position.getId() + 1).getAllPositions());
+                }
+                if(this.gameBoard.getBoardPosition(this.position.getId() - 2).getMovableBoard() == null){
+                    moves.addAll(this.gameBoard.getBoardPosition(this.position.getId() - 2).getAllPositions());
+                }
+            }
+            else if(this.position.getId() % 4 == 3){
+                if(this.gameBoard.getBoardPosition(this.position.getId() - 1).getMovableBoard() == null){
+                    moves.addAll(this.gameBoard.getBoardPosition(this.position.getId() - 1).getAllPositions());
+                }
+                if(this.gameBoard.getBoardPosition(this.position.getId() - 2).getMovableBoard() == null){
+                    moves.addAll(this.gameBoard.getBoardPosition(this.position.getId() - 2).getAllPositions());
                 }
             }
         }
         else if(isBoardEmpty()){
-            for (int r = 0; r < this.board.size(); r ++){
-                for(int c = 0; c < this.board.get(r).size(); c++) {
-                    if(this.gameBoard.isInsideBoard(r, c, this.level + 2) && !this.gameBoard.getPosition(r, c, this.level + 2).isValidSpace()){
-                        moves.add(this.gameBoard.getPosition(r, c, this.level + 2));
-                    }
-                    if(this.gameBoard.isInsideBoard(r, c, this.level - 2) && !this.gameBoard.getPosition(r, c, this.level - 2).isValidSpace()){
-                        moves.add(this.gameBoard.getPosition(r, c, this.level - 2));
-                    }
-                    if(this.gameBoard.isInsideBoard(r+2, c, this.level) && !this.gameBoard.getPosition(r+2, c, this.level).isValidSpace()){
-                        moves.add(this.gameBoard.getPosition(r+2, c, this.level));
-                    }
-                    if(this.gameBoard.isInsideBoard(r-2, c, this.level) && !this.gameBoard.getPosition(r-2, c, this.level).isValidSpace()){
-                        moves.add(this.gameBoard.getPosition(r-2, c, this.level));
-                    }
-                    if(this.gameBoard.isInsideBoard(r+4, c, this.level) && !this.gameBoard.getPosition(r+4, c, this.level).isValidSpace()){
-                        moves.add(this.gameBoard.getPosition(r+4, c, this.level));
-                    }
-                    if(this.gameBoard.isInsideBoard(r-4, c, this.level) && !this.gameBoard.getPosition(r-4, c, this.level).isValidSpace()){
-                        moves.add(this.gameBoard.getPosition(r-4, c, this.level));
-                    }
-                    if(this.gameBoard.isInsideBoard(r, c + 4, this.level) && !this.gameBoard.getPosition(r, c + 4, this.level).isValidSpace()) {
-                        moves.add(this.gameBoard.getPosition(r, c + 4, this.level));
-                    }
-                    if(this.gameBoard.isInsideBoard(r, c-4, this.level) && !this.gameBoard.getPosition(r, c - 4, this.level).isValidSpace()){
-                        moves.add(this.gameBoard.getPosition(r, c-4, this.level));
-                    }
+            if(this.position.getId() % 4 == 0){
+                if(this.gameBoard.getBoardPosition(this.position.getId() + 1).getMovableBoard() == null){
+                    moves.addAll(this.gameBoard.getBoardPosition(this.position.getId() + 1).getAllPositions());
                 }
+                if(this.gameBoard.getBoardPosition(this.position.getId() + 2).getMovableBoard() == null){
+                    moves.addAll(this.gameBoard.getBoardPosition(this.position.getId() + 2).getAllPositions());
+                }
+            }
+            else if(this.position.getId() % 4 == 1){
+                if(this.gameBoard.getBoardPosition(this.position.getId() - 1).getMovableBoard() == null){
+                    moves.addAll(this.gameBoard.getBoardPosition(this.position.getId() - 1).getAllPositions());
+                }
+                if(this.gameBoard.getBoardPosition(this.position.getId() + 2).getMovableBoard() == null){
+                    moves.addAll(this.gameBoard.getBoardPosition(this.position.getId() + 2).getAllPositions());
+                }
+            }
+            else if(this.position.getId() % 4 == 2){
+                if(this.gameBoard.getBoardPosition(this.position.getId() + 1).getMovableBoard() == null){
+                    moves.addAll(this.gameBoard.getBoardPosition(this.position.getId() + 1).getAllPositions());
+                }
+                if(this.gameBoard.getBoardPosition(this.position.getId() - 2).getMovableBoard() == null){
+                    moves.addAll(this.gameBoard.getBoardPosition(this.position.getId() - 2).getAllPositions());
+                }
+            }
+            else if(this.position.getId() % 4 == 3){
+                if(this.gameBoard.getBoardPosition(this.position.getId() - 1).getMovableBoard() == null){
+                    moves.addAll(this.gameBoard.getBoardPosition(this.position.getId() - 1).getAllPositions());
+                }
+                if(this.gameBoard.getBoardPosition(this.position.getId() - 2).getMovableBoard() == null){
+                    moves.addAll(this.gameBoard.getBoardPosition(this.position.getId() - 2).getAllPositions());
+                }
+            }
+
+            if(this.position.getId() < 20 && this.gameBoard.getBoardPosition(this.position.getId() + 4).getMovableBoard() == null){
+                moves.addAll(this.gameBoard.getBoardPosition(this.position.getId() + 4).getAllPositions());
+            }
+            if(this.position.getId() > 3 && this.gameBoard.getBoardPosition(this.position.getId() - 4).getMovableBoard() == null){
+                moves.addAll(this.gameBoard.getBoardPosition(this.position.getId() - 4).getAllPositions());
             }
         }
         return moves;
