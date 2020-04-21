@@ -9,6 +9,8 @@ public class Game {
         this.gameBoard = new GameBoard();
         this.player1 = new Player(gameBoard, 1);
         this.player2 = new Player(gameBoard, 2);
+        this.player1.setOpponent(this.player2);
+        this.player2.setOpponent(this.player1);
     }
 
     public void executeMove (Move move){

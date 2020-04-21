@@ -207,7 +207,8 @@ public class GUITest extends Application {
                                     }
                                 }
                             }
-                        } else {
+                        }
+                        else {
                             if (myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()) != moveFrom.get() &&
                                     myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()).isValidSpace()) {
                                 moveTo.set(myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()));
@@ -224,9 +225,11 @@ public class GUITest extends Application {
                                 myGame.executeMove(move);
                                 client.toServer(move);
                                 pieceSelected.set(false);
+                                //tracks if the pawn has moved
                                 if(moveTo.get().getPiece() instanceof Pawn && ((Pawn) moveTo.get().getPiece()).hasMoved() == false){
                                     ((Pawn) moveTo.get().getPiece()).setHasMoved(true);
                                 }
+                                //turns pawns into queens when they reach the back row.
                                 if(moveTo.get().getPiece() instanceof Pawn){
                                     if(moveTo.get().getPiece().getPlayer().getPlayerNumber() == 1
                                             && ((moveTo.get().getRow() == 1 && moveTo.get().getLevel() == 1)  || (moveTo.get().getRow() == 0 && (moveTo.get().getLevel() == 0 || moveTo.get().getLevel() == 2)))){

@@ -5,6 +5,7 @@ public class Player implements Serializable {
     private int playerNumber;
     private ArrayList<Piece> pieces;
     private GameBoard gameBoard;
+    private Player opponent;
 
     Player(GameBoard gameBoard, int playerNumber){
         this.playerNumber = playerNumber;
@@ -115,12 +116,33 @@ public class Player implements Serializable {
         }
     }
 
-    boolean checkForCheck(){
+    public void setOpponent(Player opponent) {
+        this.opponent = opponent;
+    }
+
+    public boolean checkForCheck(){
         return false; //change this
     }
 
-    boolean checkForCheckmate(){
+    public boolean checkForCheckmate(){
         return false; //change this
+    }
+
+    public ArrayList<BoardPosition> getAllMoves(){
+        ArrayList<BoardPosition> moves = new ArrayList<>();
+        for (Piece piece : pieces){
+            if(piece instanceof King){
+                moves.addAll(((King) piece).getMovesFull());
+            }
+            else{
+                moves.addAll(piece.getMoves());
+            }
+        }
+        return moves;
+    }
+
+    public ArrayList<BoardPosition> getOpponentMoves(){
+        return this.opponent.getAllMoves();
     }
 
     public ArrayList<Piece> getPieces() {
