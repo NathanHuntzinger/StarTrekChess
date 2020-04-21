@@ -428,6 +428,8 @@ public class GUITest extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
+
+
     }
     private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
         for (Node node : gridPane.getChildren()) {
@@ -436,6 +438,91 @@ public class GUITest extends Application {
             }
         }
         return null;
+    }
+
+    class Updater{
+        Game myGame;
+        ArrayList<ArrayList<ArrayList<BoardPosition>>> board;
+        ArrayList<GridPane> levels;
+        ArrayList<Image> images;
+
+        Updater(Game myGame, ArrayList<ArrayList<ArrayList<BoardPosition>>> board, ArrayList<GridPane> levels, ArrayList<Image> images){
+            this.myGame = myGame;
+            this.board = board;
+            this.levels = levels;
+            this.images = images;
+        }
+
+        public void update(){
+            for (int r = 0; r < board.size(); r++) {
+                for (int c = 0; c < board.get(r).size(); c++) {
+                    for (int l = 0; l < board.get(r).get(c).size(); l++) {
+                        StackPane stack = (StackPane) getNodeFromGridPane(levels.get(l), c, r);
+                        Rectangle rect = (Rectangle) stack.getChildren().get(0);
+
+                        if(!myGame.getGameBoard().getPosition(r,c,l).isValidSpace()){
+                            rect.setFill(Color.TRANSPARENT);
+                            rect.setStroke(Color.TRANSPARENT);
+                        }
+                        else{
+                            if((r % 2 == 0 && c % 2 == 0) || (r % 2 == 1 && c % 2 == 1)){
+                                rect.setFill(Color.WHITE);
+                                rect.setStroke(Color.BLACK);
+                            }
+                            else{
+                                rect.setFill(Color.BLACK);
+                                rect.setStroke(Color.BLACK);
+                            }
+                        }
+                        ImageView piece = (ImageView) stack.getChildren().get(1);
+                        if(myGame.getGameBoard().getPosition(r,c,l).getPiece() != null && myGame.getGameBoard().getPosition(r,c,l).getPiece().getPlayer().getPlayerNumber() == 1) {
+                            if (myGame.getGameBoard().getPosition(r, c, l).getPiece() instanceof Pawn) {
+                                piece.setImage(images.get(0));
+                            }
+                            else if (myGame.getGameBoard().getPosition(r, c, l).getPiece() instanceof Rook) {
+                                piece.setImage(images.get(1));
+                            }
+                            else if(myGame.getGameBoard().getPosition(r, c, l).getPiece() instanceof Knight){
+                                piece.setImage(images.get(2));
+                            }
+                            else if (myGame.getGameBoard().getPosition(r, c, l).getPiece() instanceof Bishop) {
+                                piece.setImage(images.get(3));
+                            }
+                            else if (myGame.getGameBoard().getPosition(r, c, l).getPiece() instanceof Queen) {
+                                piece.setImage(images.get(4));
+                            }
+                            else if (myGame.getGameBoard().getPosition(r, c, l).getPiece() instanceof King) {
+                                piece.setImage(images.get(5));
+                            }
+                        }
+                        else if(myGame.getGameBoard().getPosition(r,c,l).getPiece() != null && myGame.getGameBoard().getPosition(r,c,l).getPiece().getPlayer().getPlayerNumber() == 2){
+                            if (myGame.getGameBoard().getPosition(r, c, l).getPiece() instanceof Pawn) {
+                                piece.setImage(images.get(6));
+                            }
+                            else if (myGame.getGameBoard().getPosition(r, c, l).getPiece() instanceof Rook) {
+                                piece.setImage(images.get(7));
+                            }
+                            else if(myGame.getGameBoard().getPosition(r, c, l).getPiece() instanceof Knight){
+                                piece.setImage(images.get(8));
+                            }
+                            else if (myGame.getGameBoard().getPosition(r, c, l).getPiece() instanceof Bishop) {
+                                piece.setImage(images.get(9));
+                            }
+                            else if (myGame.getGameBoard().getPosition(r, c, l).getPiece() instanceof Queen) {
+                                piece.setImage(images.get(10));
+                            }
+                            else if (myGame.getGameBoard().getPosition(r, c, l).getPiece() instanceof King) {
+                                piece.setImage(images.get(11));
+                            }
+                        }
+                        else {
+                            piece.setImage(null);
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     private void updateBoard(Game myGame, ArrayList<ArrayList<ArrayList<BoardPosition>>> board, ArrayList<GridPane> levels, ArrayList<Image> images){

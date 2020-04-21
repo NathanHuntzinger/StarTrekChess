@@ -12,12 +12,14 @@ public class Game {
     }
 
     public void executeMove (Move move){
-        if(move.getTo().getPiece() != null){
-            move.getTo().getPiece().setPosition(null);
+        BoardPosition from = gameBoard.getPosition(move.getFromRow(), move.getFromCol(), move.getFromLevel());
+        BoardPosition to = gameBoard.getPosition(move.getToRow(), move.getToCol(), move.getToLevel());
+        if(to.getPiece() != null){
+            to.getPiece().setPosition(null);
         }
-        move.getFrom().getPiece().setPosition(move.getTo());
-        move.getTo().setPiece(move.getFrom().getPiece());
-        move.getFrom().setPiece(null);
+        from.getPiece().setPosition(to);
+        to.setPiece(from.getPiece());
+        from.setPiece(null);
     }
 
     public void executeMovableBoardMove(MovableBoardMove move){

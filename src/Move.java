@@ -1,19 +1,44 @@
 import java.io.Serializable;
 
 public class Move implements Serializable {
-    private BoardPosition from;
-    private BoardPosition to;
+    private int fromRow;
+    private int fromCol;
+    private int fromLevel;
+    private int toRow;
+    private int toCol;
+    private int toLevel;
 
     Move(BoardPosition from, BoardPosition to){
-        this.from = from;
-        this.to = to;
+        this.fromRow = from.getRow();
+        this.fromCol = from.getCol();
+        this.fromLevel = from.getLevel();
+
+        this.toRow = to.getRow();
+        this.toCol = to.getCol();
+        this.toLevel = to.getLevel();
     }
 
-    public BoardPosition getFrom() {
-        return from;
+    public int getFromRow() {
+        return fromRow;
     }
 
-    public BoardPosition getTo() {
-        return to;
+    public int getFromCol() {
+        return fromCol;
+    }
+
+    public int getFromLevel() {
+        return fromLevel;
+    }
+
+    public int getToRow() {
+        return toRow;
+    }
+
+    public int getToCol() {
+        return toCol;
+    }
+
+    public int getToLevel() {
+        return toLevel;
     }
 }
