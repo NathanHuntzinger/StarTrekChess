@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -39,6 +40,7 @@ public class GUITest extends Application {
         AtomicReference<Boolean> pieceSelected = new AtomicReference<>(false);
         AtomicReference<Boolean> boardSelected = new AtomicReference<>(false);
         AtomicReference<Boolean> selectMovableBoard = new AtomicReference<>(false);
+        AtomicReference<Boolean> usingStarTrekPieces = new AtomicReference<>(false);
         AtomicReference<MovableBoardPosition> boardMoveFrom = new AtomicReference<>(new MovableBoardPosition());
         AtomicReference<MovableBoardPosition> boardMoveTo = new AtomicReference<>(new MovableBoardPosition());
 
@@ -55,23 +57,38 @@ public class GUITest extends Application {
             gameBoardStack.getChildren().add(levels.get(i));
         }
 
+        ArrayList<ArrayList<ArrayList<BoardPosition>>> board = myGame.getGameBoard().getBoard();
+
         BackgroundImage myBI= new BackgroundImage(new Image(GUITest.class.getResourceAsStream("background.jpg"), 2000, 800, true, false),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 
         mainPane.setBackground(new Background(myBI));
 
-        Image pawn_w_image = new Image(GUITest.class.getResourceAsStream("pawn_w.png"), 50, 50, false, false);
-        Image pawn_b_image = new Image(GUITest.class.getResourceAsStream("pawn_b.png"), 50, 50, false, false);
-        Image rook_w_image = new Image(GUITest.class.getResourceAsStream("rook_w.png"), 50, 50, false, false);
-        Image rook_b_image = new Image(GUITest.class.getResourceAsStream("rook_b.png"), 50, 50, false, false);
-        Image knight_w_image = new Image(GUITest.class.getResourceAsStream("knight_w.png"), 50, 50, false, false);
-        Image knight_b_image = new Image(GUITest.class.getResourceAsStream("knight_b.png"), 50, 50, false, false);
-        Image bishop_w_image = new Image(GUITest.class.getResourceAsStream("bishop_w.png"), 50, 50, false, false);
-        Image bishop_b_image = new Image(GUITest.class.getResourceAsStream("bishop_b.png"), 50, 50, false, false);
-        Image queen_w_image = new Image(GUITest.class.getResourceAsStream("queen_w.png"), 50, 50, false, false);
-        Image queen_b_image = new Image(GUITest.class.getResourceAsStream("queen_b.png"), 50, 50, false, false);
-        Image king_w_image = new Image(GUITest.class.getResourceAsStream("king_w.png"), 50, 50, false, false);
-        Image king_b_image = new Image(GUITest.class.getResourceAsStream("king_b.png"), 50, 50, false, false);
+        Image pawn_w_image = new Image(GUITest.class.getResourceAsStream("pawn_w.png"), 45, 45, false, false);
+        Image pawn_b_image = new Image(GUITest.class.getResourceAsStream("pawn_b.png"), 45, 45, false, false);
+        Image rook_w_image = new Image(GUITest.class.getResourceAsStream("rook_w.png"), 45, 45, false, false);
+        Image rook_b_image = new Image(GUITest.class.getResourceAsStream("rook_b.png"), 45, 45, false, false);
+        Image knight_w_image = new Image(GUITest.class.getResourceAsStream("knight_w.png"), 45, 45, false, false);
+        Image knight_b_image = new Image(GUITest.class.getResourceAsStream("knight_b.png"), 45, 45, false, false);
+        Image bishop_w_image = new Image(GUITest.class.getResourceAsStream("bishop_w.png"), 45, 45, false, false);
+        Image bishop_b_image = new Image(GUITest.class.getResourceAsStream("bishop_b.png"), 45, 45, false, false);
+        Image queen_w_image = new Image(GUITest.class.getResourceAsStream("queen_w.png"), 45, 45, false, false);
+        Image queen_b_image = new Image(GUITest.class.getResourceAsStream("queen_b.png"), 45, 45, false, false);
+        Image king_w_image = new Image(GUITest.class.getResourceAsStream("king_w.png"), 45, 45, false, false);
+        Image king_b_image = new Image(GUITest.class.getResourceAsStream("king_b.png"), 45, 45, false, false);
+
+        Image pawn_w_2_image = new Image(GUITest.class.getResourceAsStream("pawn_w_2.png"), 45, 45, false, false);
+        Image pawn_b_2_image = new Image(GUITest.class.getResourceAsStream("pawn_b_2.png"), 45, 45, false, false);
+        Image rook_w_2_image = new Image(GUITest.class.getResourceAsStream("rook_w_2.png"), 45, 45, false, false);
+        Image rook_b_2_image = new Image(GUITest.class.getResourceAsStream("rook_b_2.png"), 45, 45, false, false);
+        Image knight_w_2_image = new Image(GUITest.class.getResourceAsStream("knight_w_2.png"), 45, 45, false, false);
+        Image knight_b_2_image = new Image(GUITest.class.getResourceAsStream("knight_b_2.png"), 45, 45, false, false);
+        Image bishop_w_2_image = new Image(GUITest.class.getResourceAsStream("bishop_w_2.png"), 45, 45, false, false);
+        Image bishop_b_2_image = new Image(GUITest.class.getResourceAsStream("bishop_b_2.png"), 45, 45, false, false);
+        Image queen_w_2_image = new Image(GUITest.class.getResourceAsStream("queen_w_2.png"), 45, 45, false, false);
+        Image queen_b_2_image = new Image(GUITest.class.getResourceAsStream("queen_b_2.png"), 45, 45, false, false);
+        Image king_w_2_image = new Image(GUITest.class.getResourceAsStream("king_w_2.png"), 45, 45, false, false);
+        Image king_b_2_image = new Image(GUITest.class.getResourceAsStream("king_b_2.png"), 45, 45, false, false);
 
         ArrayList<Image> images = new ArrayList<>();
         images.add(pawn_w_image);
@@ -87,7 +104,48 @@ public class GUITest extends Application {
         images.add(queen_b_image);
         images.add(king_b_image);
 
-        ArrayList<ArrayList<ArrayList<BoardPosition>>> board = myGame.getGameBoard().getBoard();
+        CheckBox pieceToggle = new CheckBox("Use themed pieces?");
+        mainPane.setBottom(pieceToggle);
+
+        pieceToggle.setOnAction(e->{
+            if(usingStarTrekPieces.get()){
+                images.clear();
+                images.add(pawn_w_image);
+                images.add(rook_w_image);
+                images.add(knight_w_image);
+                images.add(bishop_w_image);
+                images.add(queen_w_image);
+                images.add(king_w_image);
+                images.add(pawn_b_image);
+                images.add(rook_b_image);
+                images.add(knight_b_image);
+                images.add(bishop_b_image);
+                images.add(queen_b_image);
+                images.add(king_b_image);
+
+                usingStarTrekPieces.set(false);
+                updateBoard(myGame, board, levels, images);
+            }
+            else{
+                images.clear();
+                images.add(pawn_w_2_image);
+                images.add(rook_w_2_image);
+                images.add(knight_w_2_image);
+                images.add(bishop_w_2_image);
+                images.add(queen_w_2_image);
+                images.add(king_w_2_image);
+                images.add(pawn_b_2_image);
+                images.add(rook_b_2_image);
+                images.add(knight_b_2_image);
+                images.add(bishop_b_2_image);
+                images.add(queen_b_2_image);
+                images.add(king_b_2_image);
+
+                usingStarTrekPieces.set(true);
+                updateBoard(myGame, board, levels, images);
+            }
+        });
+
 
         //Internal class
         class BoardSquare extends Rectangle {
@@ -110,7 +168,6 @@ public class GUITest extends Application {
                                 moveFrom.set(pos);
                                 ArrayList<BoardPosition> possibleMoves = myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()).getPiece().getMoves();
                                 for (BoardPosition move : possibleMoves){
-                                    System.out.println(move.toString());
                                     StackPane stack = (StackPane) getNodeFromGridPane(levels.get(move.getLevel()), move.getCol(), move.getRow());
                                     Rectangle rect = (Rectangle) stack.getChildren().get(0);
                                     if(move.getPiece() != null){
@@ -128,6 +185,19 @@ public class GUITest extends Application {
                                 myGame.executeMove(move);
                                 client.toServer(move);
                                 pieceSelected.set(false);
+                                if(moveTo.get().getPiece() instanceof Pawn && ((Pawn) moveTo.get().getPiece()).hasMoved() == false){
+                                    ((Pawn) moveTo.get().getPiece()).setHasMoved(true);
+                                }
+                                if(moveTo.get().getPiece() instanceof Pawn){
+                                    if(moveTo.get().getPiece().getPlayer().getPlayerNumber() == 1
+                                            && ((moveTo.get().getRow() == 1 && moveTo.get().getLevel() == 1)  || (moveTo.get().getRow() == 0 && (moveTo.get().getLevel() == 0 || moveTo.get().getLevel() == 2)))){
+                                        moveTo.get().setPiece(new Queen(moveTo.get(), moveTo.get().getPiece().getPlayer(), myGame.getGameBoard()));
+                                    }
+                                    else if(moveTo.get().getPiece().getPlayer().getPlayerNumber() == 2
+                                            && ((moveTo.get().getRow() == 8 && moveTo.get().getLevel() == 5)  || (moveTo.get().getRow() == 9 && (moveTo.get().getLevel() == 4 || moveTo.get().getLevel() == 6)))){
+                                        moveTo.get().setPiece(new Queen(moveTo.get(), moveTo.get().getPiece().getPlayer(), myGame.getGameBoard()));
+                                    }
+                                }
                                 System.out.println("A piece was moved");
                                 updateBoard(myGame, board, levels, images);
                             }
@@ -146,6 +216,17 @@ public class GUITest extends Application {
                                             System.out.println("A board was selected");
                                         }
                                     }
+                                }
+                            }
+                            ArrayList<BoardPosition> possibleMoves = boardMoveFrom.get().getMovableBoard().getMoves();
+                            for (BoardPosition move : possibleMoves){
+                                StackPane stack = (StackPane) getNodeFromGridPane(levels.get(move.getLevel()), move.getCol(), move.getRow());
+                                Rectangle rect = (Rectangle) stack.getChildren().get(0);
+                                if(move.getPiece() != null){
+                                    rect.setFill(Color.RED);
+                                }
+                                else {
+                                    rect.setFill(Color.BLUE);
                                 }
                             }
                         }

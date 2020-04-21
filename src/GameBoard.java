@@ -63,10 +63,10 @@ public class GameBoard implements Serializable {
         movableBoardPositions.add(new MovableBoardPosition(8,9,4,5,6,board)); //23 --starting pos
 
 
-        lowerLeftBoard = new MovableBoard(2,movableBoardPositions.get(4));
-        lowerRightBoard = new MovableBoard(2,movableBoardPositions.get(5));
-        upperLeftBoard = new MovableBoard(6,movableBoardPositions.get(22));
-        upperRightBoard = new MovableBoard(6,movableBoardPositions.get(23));
+        lowerLeftBoard = new MovableBoard(2,movableBoardPositions.get(4), this);
+        lowerRightBoard = new MovableBoard(2,movableBoardPositions.get(5), this);
+        upperLeftBoard = new MovableBoard(6,movableBoardPositions.get(22), this);
+        upperRightBoard = new MovableBoard(6,movableBoardPositions.get(23), this);
 
 
     }
@@ -74,6 +74,13 @@ public class GameBoard implements Serializable {
     public boolean isValidPosition(int row, int col, int level){
         if (row >= 0 && row <= 9 && col >= 0 && col <= 5 && level >= 0 && level <= 6){ //check is the position is inside the game board boundaries
             return this.getPosition(row, col, level).isValidSpace();
+        }
+        return false;
+    }
+
+    public boolean isInsideBoard(int row, int col, int level){
+        if (row >= 0 && row <= 9 && col >= 0 && col <= 5 && level >= 0 && level <= 6){ //check is the position is inside the game board boundaries
+            return true;
         }
         return false;
     }
