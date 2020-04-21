@@ -641,11 +641,11 @@ public class GUITest extends Application {
             this.chat.getChildren().add(text);
         }
         else if (msg instanceof Move) {
-//            myGame.executeMove((Move) msg);
+            myGame.executeMove((Move) msg);
             updateBoard();
         }
         else if (msg instanceof MovableBoardMove) {
-//            myGame.executeMovableBoardMove((MovableBoardMove) msg);
+            myGame.executeMovableBoardMove((MovableBoardMove) msg);
             updateBoard();
         }
         else if (msg instanceof PlayerInfo) {
