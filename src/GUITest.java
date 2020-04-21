@@ -130,8 +130,8 @@ public class GUITest extends Application {
         images.add(queen_b_image);
         images.add(king_b_image);
 
-        AudioClip transporterBeam = new AudioClip(Paths.get("src/Transporter_Beam.mp3").toUri().toString());
-        AudioClip phaserBlast = new AudioClip(Paths.get("src/phaser_blasts.mp3").toUri().toString());
+        AudioClip transporterBeam = new AudioClip(Paths.get("src/data/Transporter_Beam.").toUri().toString());
+        AudioClip phaserBlast = new AudioClip(Paths.get("src/data/phaser_blasts.mp3").toUri().toString());
 
         CheckBox pieceToggle = new CheckBox("Use themed pieces?");
         StackPane bottomStack = new StackPane(new Rectangle(130,17, new Color(0.6,0.6,0.61,1)));
