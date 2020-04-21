@@ -36,6 +36,7 @@ public class GUITest extends Application {
     private ArrayList<ArrayList<ArrayList<BoardPosition>>> board;
     private ArrayList<Image> images;
     private ArrayList<GridPane> levels;
+    private StackPane gameBoardStack;
 
     private Text playerInfo;
 
@@ -55,7 +56,7 @@ public class GUITest extends Application {
         AtomicReference<MovableBoardPosition> boardMoveFrom = new AtomicReference<>(new MovableBoardPosition());
         AtomicReference<MovableBoardPosition> boardMoveTo = new AtomicReference<>(new MovableBoardPosition());
 
-        StackPane gameBoardStack = new StackPane();
+        gameBoardStack = new StackPane();
         BorderPane mainPane = new BorderPane();
         mainPane.setCenter(gameBoardStack);
 
@@ -64,16 +65,9 @@ public class GUITest extends Application {
         VBox chatPane = setUpChat();
         mainPane.setRight(chatPane);
 
-        playerInfo = new Text("Please connect to a server");
-        playerInfo.setFont(new Font("Ubuntu", 40));
-        playerInfo.setFill(Color.YELLOW);
-        mainPane.setTop(playerInfo);
-        playerInfo.textProperty().addListener((a, b, c) -> {
-            FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), gameBoardStack);
-            fadeIn.setFromValue(0);
-            fadeIn.setToValue(1);
-            fadeIn.play();
-        });
+        HBox topBar = new HBox();
+        setUpTopBar(topBar);
+        mainPane.setTop(topBar);
 
         mainPane.setOnMouseClicked(e -> mainPane.requestFocus());
 
@@ -130,7 +124,7 @@ public class GUITest extends Application {
         images.add(queen_b_image);
         images.add(king_b_image);
 
-        AudioClip transporterBeam = new AudioClip(Paths.get("src/data/Transporter_Beam.").toUri().toString());
+        AudioClip transporterBeam = new AudioClip(Paths.get("src/data/Transporter_Beam.mp3").toUri().toString());
         AudioClip phaserBlast = new AudioClip(Paths.get("src/data/phaser_blasts.mp3").toUri().toString());
 
         CheckBox pieceToggle = new CheckBox("Use themed pieces?");
@@ -247,17 +241,29 @@ public class GUITest extends Application {
                                 if(myGame.getPlayer1().checkForCheck()){
                                     if(myGame.getPlayer1().checkForCheckmate()){
                                         System.out.println("Player 1 is in Checkmate!");
+                                        ChatObj msg = new ChatObj("System", "Player 1 is in Checkmate!");
+                                        toGUI(msg);
+                                        client.toServer(msg);
                                     }
                                     else{
                                         System.out.println("Player 1 is in Check!");
+                                        ChatObj msg = new ChatObj("System", "Player 1 is in Check!");
+                                        toGUI(msg);
+                                        client.toServer(msg);
                                     }
                                 }
                                 if(myGame.getPlayer2().checkForCheck()){
                                     if(myGame.getPlayer2().checkForCheckmate()){
                                         System.out.println("Player 2 is in Checkmate!");
+                                        ChatObj msg = new ChatObj("System", "Player 2 is in Checkmate!");
+                                        toGUI(msg);
+                                        client.toServer(msg);
                                     }
                                     else{
                                         System.out.println("Player 2 is in Check!");
+                                        ChatObj msg = new ChatObj("System", "Player 2 is in Check!");
+                                        toGUI(msg);
+                                        client.toServer(msg);
                                     }
                                 }
                                 updateBoard();
@@ -569,6 +575,38 @@ public class GUITest extends Application {
         }
     }
 
+    private void setUpTopBar(HBox topBar) {
+        Color color = Color.YELLOW;
+        Font font = new Font("Ubuntu", 40);
+
+        Text first = new Text("Please connect to a server");
+        Text playerName = new Text();
+
+        playerInfo = new Text();
+
+        first.setFont(font);
+        first.setFill(color);
+
+        playerName.setFont(font);
+        playerName.setFill(color);
+        playerName.textProperty().bind(name.textProperty().concat(", "));
+        playerName.setOpacity(0);
+
+        playerInfo.setFont(font);
+        playerInfo.setFill(color);
+
+        playerInfo.textProperty().addListener((a, b, c) -> {
+            playerName.setOpacity(1);
+            first.setText("Hello ");
+            FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), gameBoardStack);
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.play();
+        });
+
+        topBar.getChildren().addAll(first, playerName, playerInfo);
+    }
+
     /**
      * Chat and Server Functions
      */
@@ -681,13 +719,13 @@ public class GUITest extends Application {
             PlayerInfo payload = (PlayerInfo) msg;
             switch (payload.playerNumber) {
                 case 1:
-                    playerInfo.setText("You are Player 1 (White)");
+                    playerInfo.setText("you are Player 1 (White)");
                     break;
                 case 2:
-                    playerInfo.setText("You are Player 2 (Black)");
+                    playerInfo.setText("you are Player 2 (Black)");
                     break;
                 default:
-                    playerInfo.setText("You are a spectator");
+                    playerInfo.setText("you are a spectator");
                     break;
             }
         }
