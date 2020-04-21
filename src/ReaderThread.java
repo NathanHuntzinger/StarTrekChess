@@ -24,10 +24,8 @@ public class ReaderThread extends Thread {
 
             while (true) {
                 Object payload = inputStream.readObject();
-                if (payload instanceof ChatObj) {
-//                    System.out.println(payload.toString());
-                    Platform.runLater(() -> GUI.toGUI((ChatObj) payload));
-                }
+//                System.out.println(payload.toString());
+                Platform.runLater(() -> GUI.toGUI(payload));
             }
         }
         catch (IOException | ClassNotFoundException ex) {

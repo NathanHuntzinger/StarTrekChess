@@ -23,14 +23,14 @@ class serverThread extends Thread {
             Object message;
             while (true) {
                 message = inputStream.readObject();
-                if (message instanceof ChatObj) {
-                    System.out.println(message.toString());
-//                    outputStream.writeObject(new ChatObj("System", "Response..."));
-                    server.broadcast(message, this);
-                    outputStream.flush();
+                if (message instanceof ServerQuery) {
+                    toClient(new PlayerInfo(server.playerThreads.indexOf(this) + 1));
+                    continue;
                 }
-                // TODO: Add conditions for other objects
-
+                System.out.println(message.toString());
+//                    outputStream.writeObject(new ChatObj("System", "Response..."));
+                server.broadcast(message, this);
+                outputStream.flush();
             }
         }
         catch (IOException | ClassNotFoundException e) {

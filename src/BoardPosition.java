@@ -1,4 +1,6 @@
-public class BoardPosition {
+import java.io.Serializable;
+
+public class BoardPosition implements Serializable {
     private Piece piece;
     private int row;
     private int col;
