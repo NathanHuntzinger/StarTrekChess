@@ -142,11 +142,12 @@ public class Player implements Serializable {
     public ArrayList<BoardPosition> getAllMoves(){
         ArrayList<BoardPosition> moves = new ArrayList<>();
         for (Piece piece : pieces){
-            if(piece instanceof King){
-                moves.addAll(((King) piece).getMovesFull());
-            }
-            else{
-                moves.addAll(piece.getMoves());
+            if(piece != null) {
+                if (piece instanceof King) {
+                    moves.addAll(((King) piece).getMovesFull());
+                } else {
+                    moves.addAll(piece.getMoves());
+                }
             }
         }
         return moves;

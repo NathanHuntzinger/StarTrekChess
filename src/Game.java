@@ -41,6 +41,7 @@ public class Game {
         from.getMovableBoard().setBoard(to.getBoardSection());
         to.setMovableBoard(from.getMovableBoard());
         from.getMovableBoard().setPosition(to);
+        from.setMovableBoard(null);
     }
 
     public GameBoard getGameBoard() {

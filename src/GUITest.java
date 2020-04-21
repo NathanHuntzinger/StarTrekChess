@@ -128,7 +128,7 @@ public class GUITest extends Application {
         AudioClip phaserBlast = new AudioClip(Paths.get("src/data/phaser_blasts.mp3").toUri().toString());
 
         CheckBox pieceToggle = new CheckBox("Use themed pieces?");
-        StackPane bottomStack = new StackPane(new Rectangle(130,17, new Color(0.6,0.6,0.61,1)));
+        StackPane bottomStack = new StackPane(new Rectangle(130,17, new Color(0.5,0.5,0.55,1)));
         bottomStack.getChildren().add(pieceToggle);
         bottomStack.setAlignment(Pos.BOTTOM_LEFT);
         mainPane.setBottom(bottomStack);
@@ -206,8 +206,10 @@ public class GUITest extends Application {
                             }
                         }
                         else {
-                            if (myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()) != moveFrom.get() &&
-                                    myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()).isValidSpace()) {
+                            if (myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()) != moveFrom.get()
+                                    && myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()).isValidSpace()
+                                    && moveFrom.get().getPiece().getMoves().contains(myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()))
+                            ) {
                                 moveTo.set(myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get()));
                                 if(moveTo.get().getPiece() != null){
                                     phaserBlast.play();
@@ -302,8 +304,10 @@ public class GUITest extends Application {
                                 ArrayList<ArrayList<BoardPosition>> section = myGame.getGameBoard().getMovableBoardPositions().get(i).getBoardSection();
                                 for(int r = 0; r < section.size(); r ++){
                                     for(int c = 0; c < section.get(r).size(); c++){
-                                        if(myGame.getGameBoard().getMovableBoardPositions().get(i) != boardMoveFrom.get() &&
-                                                section.get(r).get(c) == myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get())){
+                                        if(myGame.getGameBoard().getMovableBoardPositions().get(i) != boardMoveFrom.get()
+                                                && section.get(r).get(c) == myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get())
+//                                                && board
+                                        ){
                                             boardMoveTo.set(myGame.getGameBoard().getMovableBoardPositions().get(i));
                                             transporterBeam.play();
                                             MovableBoardMove boardMove = new MovableBoardMove(boardMoveFrom.get(), boardMoveTo.get());
