@@ -529,7 +529,7 @@ public class GUITest extends Application {
     }
 
     /**
-     * Chat Functions
+     * Chat and Server Functions
      */
     private Text name;
     private VBox chat;
@@ -561,7 +561,9 @@ public class GUITest extends Application {
         name = new Text("...");
         name.setFill(Color.WHITE);
         name.setFont(new Font("Ubuntu", 20));
+
         TextField chatInput = new TextField();
+        chatInput.setPrefWidth(250);
         Button sendButton = new Button("Send");
 
         inputPane.getChildren().add(name);
@@ -636,7 +638,17 @@ public class GUITest extends Application {
         }
         else if (msg instanceof PlayerInfo) {
             PlayerInfo payload = (PlayerInfo) msg;
-            playerInfo.setText("You are Player " + payload.playerNumber);
+            switch (payload.playerNumber) {
+                case 1:
+                    playerInfo.setText("You are Player 1 (White)");
+                    break;
+                case 2:
+                    playerInfo.setText("You are Player 2 (Black)");
+                    break;
+                default:
+                    playerInfo.setText("You are a spectator");
+                    break;
+            }
         }
         else {
             System.out.println("Invalid Object type received from server");
