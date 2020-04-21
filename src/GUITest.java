@@ -278,7 +278,9 @@ public class GUITest extends Application {
                                                 section.get(r).get(c) == myGame.getGameBoard().getPosition(this.row, this.col, currentLevel.get())){
                                             boardMoveTo.set(myGame.getGameBoard().getMovableBoardPositions().get(i));
                                             transporterBeam.play();
-                                            myGame.executeMovableBoardMove(new MovableBoardMove(boardMoveFrom.get(), boardMoveTo.get()));
+                                            MovableBoardMove boardMove = new MovableBoardMove(boardMoveFrom.get(), boardMoveTo.get());
+                                            myGame.executeMovableBoardMove(boardMove);
+                                            client.toServer(boardMove);
                                             boardSelected.set(false);
                                             selectMovableBoard.set(false);
                                             System.out.println("A board was moved");
@@ -546,7 +548,7 @@ public class GUITest extends Application {
     }
 
     /**
-     * Chat Functions
+     * Chat and Server Functions
      */
     private Text name;
     private VBox chat;
@@ -578,7 +580,9 @@ public class GUITest extends Application {
         name = new Text("...");
         name.setFill(Color.WHITE);
         name.setFont(new Font("Ubuntu", 20));
+
         TextField chatInput = new TextField();
+        chatInput.setPrefWidth(250);
         Button sendButton = new Button("Send");
 
         inputPane.getChildren().add(name);
@@ -653,7 +657,17 @@ public class GUITest extends Application {
         }
         else if (msg instanceof PlayerInfo) {
             PlayerInfo payload = (PlayerInfo) msg;
-            playerInfo.setText("You are Player " + payload.playerNumber);
+            switch (payload.playerNumber) {
+                case 1:
+                    playerInfo.setText("You are Player 1 (White)");
+                    break;
+                case 2:
+                    playerInfo.setText("You are Player 2 (Black)");
+                    break;
+                default:
+                    playerInfo.setText("You are a spectator");
+                    break;
+            }
         }
         else {
             System.out.println("Invalid Object type received from server");
