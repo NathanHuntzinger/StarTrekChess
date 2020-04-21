@@ -19,23 +19,19 @@ public class Client {
         this.GUI = GUI;
     }
 
-    public void start() {
-        try {
-            socket = new Socket(hostname, port);
+    public void start() throws IOException{
+        socket = new Socket(hostname, port);
 
-            System.out.println("Connected to the chat server");
+        System.out.println("Connected to the chat server");
 
 //            writerThread = new WriterThread(socket, this, GUI);
-            outputStream = new ObjectOutputStream(socket.getOutputStream());
-            readerThread = new ReaderThread(socket, this, GUI);
+        outputStream = new ObjectOutputStream(socket.getOutputStream());
+        readerThread = new ReaderThread(socket, this, GUI);
 
-            readerThread.start();
+        readerThread.start();
 //            writerThread.start();
-        }
-        catch (IOException ex) {
-            System.out.println("I/O Error: " + ex.getMessage());
-        }
 
+        toServer(new ServerQuery());
     }
 
     public void setPlayerName(String name) {
