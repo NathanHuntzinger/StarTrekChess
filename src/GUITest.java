@@ -30,7 +30,7 @@ public class GUITest extends Application {
     private ArrayList<ArrayList<ArrayList<BoardPosition>>> board;
     private ArrayList<Image> images;
     private ArrayList<GridPane> levels;
-    
+
     private Text playerInfo;
 
     @Override
@@ -71,36 +71,36 @@ public class GUITest extends Application {
 
         this.board = myGame.getGameBoard().getBoard();
 
-        BackgroundImage myBI= new BackgroundImage(new Image(GUITest.class.getResourceAsStream("background.jpg"), 2000, 800, true, false),
+        BackgroundImage myBI= new BackgroundImage(new Image(GUITest.class.getResourceAsStream("data/background.jpg"), 2000, 800, true, false),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 
         mainPane.setBackground(new Background(myBI));
 
-        Image pawn_w_image = new Image(GUITest.class.getResourceAsStream("pawn_w.png"), 45, 45, false, false);
-        Image pawn_b_image = new Image(GUITest.class.getResourceAsStream("pawn_b.png"), 45, 45, false, false);
-        Image rook_w_image = new Image(GUITest.class.getResourceAsStream("rook_w.png"), 45, 45, false, false);
-        Image rook_b_image = new Image(GUITest.class.getResourceAsStream("rook_b.png"), 45, 45, false, false);
-        Image knight_w_image = new Image(GUITest.class.getResourceAsStream("knight_w.png"), 45, 45, false, false);
-        Image knight_b_image = new Image(GUITest.class.getResourceAsStream("knight_b.png"), 45, 45, false, false);
-        Image bishop_w_image = new Image(GUITest.class.getResourceAsStream("bishop_w.png"), 45, 45, false, false);
-        Image bishop_b_image = new Image(GUITest.class.getResourceAsStream("bishop_b.png"), 45, 45, false, false);
-        Image queen_w_image = new Image(GUITest.class.getResourceAsStream("queen_w.png"), 45, 45, false, false);
-        Image queen_b_image = new Image(GUITest.class.getResourceAsStream("queen_b.png"), 45, 45, false, false);
-        Image king_w_image = new Image(GUITest.class.getResourceAsStream("king_w.png"), 45, 45, false, false);
-        Image king_b_image = new Image(GUITest.class.getResourceAsStream("king_b.png"), 45, 45, false, false);
+        Image pawn_w_image = new Image(GUITest.class.getResourceAsStream("data/pawn_w.png"), 45, 45, false, false);
+        Image pawn_b_image = new Image(GUITest.class.getResourceAsStream("data/pawn_b.png"), 45, 45, false, false);
+        Image rook_w_image = new Image(GUITest.class.getResourceAsStream("data/rook_w.png"), 45, 45, false, false);
+        Image rook_b_image = new Image(GUITest.class.getResourceAsStream("data/rook_b.png"), 45, 45, false, false);
+        Image knight_w_image = new Image(GUITest.class.getResourceAsStream("data/knight_w.png"), 45, 45, false, false);
+        Image knight_b_image = new Image(GUITest.class.getResourceAsStream("data/knight_b.png"), 45, 45, false, false);
+        Image bishop_w_image = new Image(GUITest.class.getResourceAsStream("data/bishop_w.png"), 45, 45, false, false);
+        Image bishop_b_image = new Image(GUITest.class.getResourceAsStream("data/bishop_b.png"), 45, 45, false, false);
+        Image queen_w_image = new Image(GUITest.class.getResourceAsStream("data/queen_w.png"), 45, 45, false, false);
+        Image queen_b_image = new Image(GUITest.class.getResourceAsStream("data/queen_b.png"), 45, 45, false, false);
+        Image king_w_image = new Image(GUITest.class.getResourceAsStream("data/king_w.png"), 45, 45, false, false);
+        Image king_b_image = new Image(GUITest.class.getResourceAsStream("data/king_b.png"), 45, 45, false, false);
 
-        Image pawn_w_2_image = new Image(GUITest.class.getResourceAsStream("pawn_w_2.png"), 45, 45, false, false);
-        Image pawn_b_2_image = new Image(GUITest.class.getResourceAsStream("pawn_b_2.png"), 45, 45, false, false);
-        Image rook_w_2_image = new Image(GUITest.class.getResourceAsStream("rook_w_2.png"), 45, 45, false, false);
-        Image rook_b_2_image = new Image(GUITest.class.getResourceAsStream("rook_b_2.png"), 45, 45, false, false);
-        Image knight_w_2_image = new Image(GUITest.class.getResourceAsStream("knight_w_2.png"), 45, 45, false, false);
-        Image knight_b_2_image = new Image(GUITest.class.getResourceAsStream("knight_b_2.png"), 45, 45, false, false);
-        Image bishop_w_2_image = new Image(GUITest.class.getResourceAsStream("bishop_w_2.png"), 45, 45, false, false);
-        Image bishop_b_2_image = new Image(GUITest.class.getResourceAsStream("bishop_b_2.png"), 45, 45, false, false);
-        Image queen_w_2_image = new Image(GUITest.class.getResourceAsStream("queen_w_2.png"), 45, 45, false, false);
-        Image queen_b_2_image = new Image(GUITest.class.getResourceAsStream("queen_b_2.png"), 45, 45, false, false);
-        Image king_w_2_image = new Image(GUITest.class.getResourceAsStream("king_w_2.png"), 45, 45, false, false);
-        Image king_b_2_image = new Image(GUITest.class.getResourceAsStream("king_b_2.png"), 45, 45, false, false);
+        Image pawn_w_2_image = new Image(GUITest.class.getResourceAsStream("data/pawn_w_2.png"), 45, 45, false, false);
+        Image pawn_b_2_image = new Image(GUITest.class.getResourceAsStream("data/pawn_b_2.png"), 45, 45, false, false);
+        Image rook_w_2_image = new Image(GUITest.class.getResourceAsStream("data/rook_w_2.png"), 45, 45, false, false);
+        Image rook_b_2_image = new Image(GUITest.class.getResourceAsStream("data/rook_b_2.png"), 45, 45, false, false);
+        Image knight_w_2_image = new Image(GUITest.class.getResourceAsStream("data/knight_w_2.png"), 45, 45, false, false);
+        Image knight_b_2_image = new Image(GUITest.class.getResourceAsStream("data/knight_b_2.png"), 45, 45, false, false);
+        Image bishop_w_2_image = new Image(GUITest.class.getResourceAsStream("data/bishop_w_2.png"), 45, 45, false, false);
+        Image bishop_b_2_image = new Image(GUITest.class.getResourceAsStream("data/bishop_b_2.png"), 45, 45, false, false);
+        Image queen_w_2_image = new Image(GUITest.class.getResourceAsStream("data/queen_w_2.png"), 45, 45, false, false);
+        Image queen_b_2_image = new Image(GUITest.class.getResourceAsStream("data/queen_b_2.png"), 45, 45, false, false);
+        Image king_w_2_image = new Image(GUITest.class.getResourceAsStream("data/king_w_2.png"), 45, 45, false, false);
+        Image king_b_2_image = new Image(GUITest.class.getResourceAsStream("data/king_b_2.png"), 45, 45, false, false);
 
         this.images = new ArrayList<>();
         images.add(pawn_w_image);
